@@ -430,8 +430,6 @@ public class PolygonSession implements Closeable {
             throws PolygonSessionException {
         String json = sendAPIRequestPlain(methodName, parameters);
 
-        System.out.println(json);
-
         JSONResponse jsonResponse = gson.fromJson(json, JSONResponse.class);
         if (jsonResponse.getStatus() == JSONResponseStatus.FAILED) {
             throw new PolygonSessionFailedRequestException(BASE_URL + methodName, parameters,
