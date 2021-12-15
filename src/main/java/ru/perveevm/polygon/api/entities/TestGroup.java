@@ -5,6 +5,8 @@ import ru.perveevm.polygon.api.entities.enums.TestGroupPointsPolicy;
 
 /**
  * @author Perveev Mike (perveev_m@mail.ru)
+ * <p>
+ * Represents test group in a problem.
  */
 public class TestGroup {
     private String name;
@@ -12,18 +14,30 @@ public class TestGroup {
     private TestGroupFeedbackPolicy feedbackPolicy;
     private String[] dependencies;
 
+    /**
+     * @return Group name.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * @return Points giving policy.
+     */
     public TestGroupPointsPolicy getPointsPolicy() {
         return pointsPolicy;
     }
 
+    /**
+     * @return Shown feedback policy.
+     */
     public TestGroupFeedbackPolicy getFeedbackPolicy() {
         return feedbackPolicy;
     }
 
+    /**
+     * @return An array of other groups' names — the dependencies for current group.
+     */
     public String[] getDependencies() {
         return dependencies;
     }

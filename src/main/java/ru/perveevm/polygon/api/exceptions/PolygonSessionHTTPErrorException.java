@@ -28,6 +28,10 @@ public class PolygonSessionHTTPErrorException extends PolygonSessionException {
         super(getMessage(url, parameters), cause);
     }
 
+    /**
+     * @param url   Request URL.
+     * @param cause Cause of this exception.
+     */
     public PolygonSessionHTTPErrorException(final String url, final Throwable cause) {
         super(getMessage(url), cause);
     }

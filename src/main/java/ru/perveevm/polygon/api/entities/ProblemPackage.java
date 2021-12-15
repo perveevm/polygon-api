@@ -4,6 +4,8 @@ import ru.perveevm.polygon.api.entities.enums.PackageState;
 
 /**
  * @author Perveev Mike (perveev_m@mail.ru)
+ * <p>
+ * Represents problem package.
  */
 public class ProblemPackage {
     private Integer id;
@@ -12,22 +14,37 @@ public class ProblemPackage {
     private PackageState state;
     private String comment;
 
+    /**
+     * @return Package ID.
+     */
     public Integer getId() {
         return id;
     }
 
+    /**
+     * @return Revision of a problem for which the package was created.
+     */
     public Integer getRevision() {
         return revision;
     }
 
+    /**
+     * @return Package creation time in unix format.
+     */
     public Integer getCreationTimeSeconds() {
         return creationTimeSeconds;
     }
 
+    /**
+     * @return Current package state.
+     */
     public PackageState getState() {
         return state;
     }
 
+    /**
+     * @return Package comment.
+     */
     public String getComment() {
         return comment;
     }

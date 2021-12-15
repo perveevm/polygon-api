@@ -15,8 +15,17 @@ import java.util.stream.Collectors;
 
 /**
  * @author Perveev Mike (perveev_m@mail.ru)
+ * <p>
+ * Represents some utils working with Java reflection to perform requests easier.
  */
 public class ReflectionUtils {
+    /**
+     * Encodes method parameters to {@link List} of {@link NameValuePair} objects.
+     *
+     * @param method {@link Method} object for some method from {@link ru.perveevm.polygon.api.PolygonSession} class.
+     * @param values An array of method parameters.
+     * @return Encoded parameters.
+     */
     public static List<NameValuePair> encodeMethodParameters(final Method method, final Object... values)
             throws PolygonSessionException {
         Parameter[] parameters = method.getParameters();
@@ -42,6 +51,13 @@ public class ReflectionUtils {
         return requestParameters;
     }
 
+    /**
+     * Gets {@link Method} object by its name.
+     *
+     * @param clazz Class descriptor to find method in.
+     * @param name  Method name.
+     * @return {@link Method} object corresponding to found method.
+     */
     public static Method getMethodByName(final Class<?> clazz, final String name) {
         Optional<Method> foundMethod = Arrays.stream(clazz.getMethods())
                 .filter(p -> p.getName().equals(name)).findFirst();

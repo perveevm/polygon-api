@@ -32,6 +32,8 @@ import java.util.stream.Collectors;
 
 /**
  * @author Perveev Mike (perveev_m@mail.ru)
+ * <p>
+ * Basic class for performing Polygon API calls.
  */
 public class PolygonSession implements Closeable {
     private final static String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
@@ -46,6 +48,12 @@ public class PolygonSession implements Closeable {
 
     // TODO pin
 
+    /**
+     * Initializes Polygon session with API key.
+     *
+     * @param key    API key from Polygon.
+     * @param secret API secret parameter from Polygon.
+     */
     public PolygonSession(final String key, final String secret) {
         this.key = key;
         this.secret = secret;

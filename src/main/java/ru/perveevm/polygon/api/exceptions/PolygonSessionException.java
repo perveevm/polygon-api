@@ -8,12 +8,21 @@ import java.util.stream.Collectors;
 
 /**
  * @author Perveev Mike (perveev_m@mail.ru)
+ * <p>
+ * Thrown if some error occures while perform API calls.
  */
 public class PolygonSessionException extends Exception {
+    /**
+     * @param message Error message.
+     */
     public PolygonSessionException(final String message) {
         super(message);
     }
 
+    /**
+     * @param message Error message.
+     * @param cause   Exception that caused an error.
+     */
     public PolygonSessionException(final String message, final Throwable cause) {
         super(message, cause);
     }

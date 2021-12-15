@@ -31,6 +31,10 @@ public class PolygonSessionFailedRequestException extends PolygonSessionExceptio
         super(getMessage(url, parameters) + String.format(" returned status is FAILED, comment: %s", comment), cause);
     }
 
+    /**
+     * @param url     Request URL.
+     * @param comment A response comment from JSON.
+     */
     public PolygonSessionFailedRequestException(final String url, final String comment) {
         super(getMessage(url) + String.format(" returned status is FAILED, comment: %s", comment));
     }
