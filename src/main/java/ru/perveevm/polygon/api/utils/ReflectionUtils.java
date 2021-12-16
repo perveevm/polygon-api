@@ -25,6 +25,7 @@ public class ReflectionUtils {
      * @param method {@link Method} object for some method from {@link ru.perveevm.polygon.api.PolygonSession} class.
      * @param values An array of method parameters.
      * @return Encoded parameters.
+     * @throws PolygonSessionException if error occured while reading some file from file descriptor parameter.
      */
     public static List<NameValuePair> encodeMethodParameters(final Method method, final Object... values)
             throws PolygonSessionException {
