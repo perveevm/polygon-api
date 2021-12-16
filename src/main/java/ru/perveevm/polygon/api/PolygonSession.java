@@ -46,7 +46,7 @@ public class PolygonSession implements Closeable {
     private final CloseableHttpClient client = HttpClients.createDefault();
     private final Gson gson = new Gson();
 
-    // TODO pin
+    private String pin = null;
 
     /**
      * Initializes Polygon session with API key.
@@ -62,6 +62,16 @@ public class PolygonSession implements Closeable {
     @Override
     public void close() throws IOException {
         client.close();
+    }
+
+    /**
+     * Sets <code>pin</code> that will be used in all following requests. You can set it to <code>null</code> if no pin
+     * is required.
+     *
+     * @param pin Polygon pin code for problem or contest access.
+     */
+    public void setPin(final String pin) {
+        this.pin = pin;
     }
 
     /**
@@ -771,6 +781,9 @@ public class PolygonSession implements Closeable {
     private HttpResponse getAPIResponse(final String methodName, final List<NameValuePair> parameters)
             throws PolygonSessionException {
         List<NameValuePair> extendedParameters = new ArrayList<>(parameters);
+        if (pin != null) {
+            extendedParameters.add(new BasicNameValuePair("pin", pin));
+        }
         extendedParameters.add(new BasicNameValuePair("apiKey", key));
         extendedParameters.add(new BasicNameValuePair("time", String.valueOf(System.currentTimeMillis() / 1000)));
         extendedParameters.add(new BasicNameValuePair("apiSig", generateApiSig(methodName, extendedParameters)));
