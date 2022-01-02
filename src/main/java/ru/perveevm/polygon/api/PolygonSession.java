@@ -857,7 +857,7 @@ public class PolygonSession implements Closeable {
                 .map(p -> p.getName() + "=" + p.getValue())
                 .collect(Collectors.joining("&"))).append('#').append(secret);
 
-        rand.append(Hashing.sha512().hashString(apiSig.toString(), StandardCharsets.UTF_8));
+        rand.append(Hashing.sha512().hashBytes(apiSig.toString().getBytes(StandardCharsets.UTF_8)));
 
 //        digest.reset();
 //        digest.update(apiSig.toString().getBytes(StandardCharsets.UTF_8));
