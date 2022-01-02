@@ -26,7 +26,10 @@ import ru.perveevm.polygon.api.json.JSONResponseStatus;
 import ru.perveevm.polygon.api.utils.ReflectionUtils;
 
 import java.io.*;
+import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -46,6 +49,8 @@ public class PolygonSession implements Closeable {
     private final CloseableHttpClient client = HttpClients.createDefault();
     private final Gson gson = new Gson();
 
+    private MessageDigest digest;
+
     private String pin = null;
 
     /**
@@ -57,6 +62,11 @@ public class PolygonSession implements Closeable {
     public PolygonSession(final String key, final String secret) {
         this.key = key;
         this.secret = secret;
+        try {
+            this.digest = MessageDigest.getInstance("SHA-512");
+        } catch (NoSuchAlgorithmException e) {
+            this.digest = null;
+        }
     }
 
     @Override
@@ -846,7 +856,11 @@ public class PolygonSession implements Closeable {
                 .map(p -> p.getName() + "=" + p.getValue())
                 .collect(Collectors.joining("&"))).append('#').append(secret);
 
-        rand.append(DigestUtils.sha512Hex(apiSig.toString()));
+        digest.reset();
+        digest.update(apiSig.toString().getBytes(StandardCharsets.UTF_8));
+        rand.append((new BigInteger(1, digest.digest())).toString(16));
+
+//        rand.append(DigestUtils.sha512Hex(apiSig.toString()));
         return rand.toString();
     }
 }
