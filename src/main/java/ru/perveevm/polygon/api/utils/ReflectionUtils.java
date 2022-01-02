@@ -7,6 +7,7 @@ import ru.perveevm.polygon.api.exceptions.PolygonSessionException;
 import java.io.*;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -39,7 +40,8 @@ public class ReflectionUtils {
             if (values[i] instanceof File) {
                 File curFile = (File) values[i];
                 String curData;
-                try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(curFile)))) {
+                try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(curFile),
+                        StandardCharsets.UTF_8))) {
                     curData = reader.lines().collect(Collectors.joining(System.lineSeparator()));
                 } catch (IOException e) {
                     throw new PolygonSessionException("Cannot read file", e);

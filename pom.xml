@@ -6,7 +6,7 @@
 
     <groupId>ru.perveevm</groupId>
     <artifactId>polygon-api</artifactId>
-    <version>0.3.3</version>
+    <version>0.3.4</version>
 
     <properties>
         <maven.compiler.source>15</maven.compiler.source>
