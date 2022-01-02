@@ -1,5 +1,6 @@
 package ru.perveevm.polygon.api;
 
+import com.google.common.hash.Hashing;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonSyntaxException;
@@ -856,9 +857,11 @@ public class PolygonSession implements Closeable {
                 .map(p -> p.getName() + "=" + p.getValue())
                 .collect(Collectors.joining("&"))).append('#').append(secret);
 
-        digest.reset();
-        digest.update(apiSig.toString().getBytes(StandardCharsets.UTF_8));
-        rand.append((new BigInteger(1, digest.digest())).toString(16));
+        rand.append(Hashing.sha512().hashString(apiSig.toString(), StandardCharsets.UTF_8));
+
+//        digest.reset();
+//        digest.update(apiSig.toString().getBytes(StandardCharsets.UTF_8));
+//        rand.append((new BigInteger(1, digest.digest())).toString(16));
 
 //        rand.append(DigestUtils.sha512Hex(apiSig.toString()));
         return rand.toString();
