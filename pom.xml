@@ -6,7 +6,7 @@
 
     <groupId>ru.perveevm</groupId>
     <artifactId>polygon-api</artifactId>
-    <version>0.3.4</version>
+    <version>0.4</version>
 
     <properties>
         <maven.compiler.source>15</maven.compiler.source>
@@ -43,11 +43,11 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpmime -->
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>31.0.1-jre</version>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpmime</artifactId>
+            <version>4.5.13</version>
         </dependency>
     </dependencies>
 

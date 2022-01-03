@@ -1,17 +1,17 @@
 package ru.perveevm.polygon.api;
 
-import com.google.common.hash.Hashing;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import lombok.NonNull;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.ParseException;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
@@ -27,7 +27,6 @@ import ru.perveevm.polygon.api.json.JSONResponseStatus;
 import ru.perveevm.polygon.api.utils.ReflectionUtils;
 
 import java.io.*;
-import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -50,8 +49,6 @@ public class PolygonSession implements Closeable {
     private final CloseableHttpClient client = HttpClients.createDefault();
     private final Gson gson = new Gson();
 
-    private MessageDigest digest;
-
     private String pin = null;
 
     /**
@@ -63,11 +60,6 @@ public class PolygonSession implements Closeable {
     public PolygonSession(final String key, final String secret) {
         this.key = key;
         this.secret = secret;
-        try {
-            this.digest = MessageDigest.getInstance("SHA-512");
-        } catch (NoSuchAlgorithmException e) {
-            this.digest = null;
-        }
     }
 
     @Override
@@ -840,7 +832,12 @@ public class PolygonSession implements Closeable {
     private HttpResponse sendPostRequest(final String url, final List<NameValuePair> parameters)
             throws IOException {
         HttpPost request = new HttpPost(url);
-        request.setEntity(new UrlEncodedFormEntity(parameters, StandardCharsets.UTF_8));
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+        for (NameValuePair p : parameters) {
+            builder.addBinaryBody(p.getName(), p.getValue().getBytes(StandardCharsets.UTF_8));
+        }
+        HttpEntity entity = builder.build();
+        request.setEntity(entity);
         return client.execute(request);
     }
 
@@ -857,13 +854,7 @@ public class PolygonSession implements Closeable {
                 .map(p -> p.getName() + "=" + p.getValue())
                 .collect(Collectors.joining("&"))).append('#').append(secret);
 
-        rand.append(Hashing.sha512().hashBytes(apiSig.toString().getBytes(StandardCharsets.UTF_8)));
-
-//        digest.reset();
-//        digest.update(apiSig.toString().getBytes(StandardCharsets.UTF_8));
-//        rand.append((new BigInteger(1, digest.digest())).toString(16));
-
-//        rand.append(DigestUtils.sha512Hex(apiSig.toString()));
+        rand.append(DigestUtils.sha512Hex(apiSig.toString()));
         return rand.toString();
     }
 }
