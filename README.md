@@ -14,7 +14,7 @@ All entity classes, for example, `Problem`, `ProblemPackage`, etc., are in the `
 
 To add it into your pom.xml use:
 
-```
+```xml
 <repositories>
   <repository>
       <id>jitpack.io</id>
