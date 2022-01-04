@@ -12,6 +12,23 @@ The main class is `PolygonSession`. It implements all API methods. Constructor t
 
 All entity classes, for example, `Problem`, `ProblemPackage`, etc., are in the `ru.perveevm.polygon.api.entities` package.
 
+To add it into your pom.xml use:
+
+```
+<repositories>
+  <repository>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
+  </repository>
+</repositories>
+
+<dependency>
+    <groupId>com.github.perveevm</groupId>
+    <artifactId>polygon-api</artifactId>
+    <version>v0.5.2</version>
+</dependency>
+```
+
 ### Dependencies
 
 All dependencies that were used you can find in `pom.xml` config file.
