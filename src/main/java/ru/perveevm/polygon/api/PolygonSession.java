@@ -522,7 +522,7 @@ public class PolygonSession implements Closeable {
      * @param verifyInputOutputForStatements If <code>true</code>, input/output data for statements will be checked.
      */
     public void problemSaveTest(@NonNull final Integer problemId, final Boolean checkExisting,
-                                @NonNull final String testset, @NonNull final Integer testIndex,
+                                @NonNull final String testset, final Integer testIndex,
                                 @NonNull final String testInput, final String testGroup, final Double testPoints,
                                 final String testDescription, final Boolean testUseInStatements,
                                 final String testInputForStatements, final String testOutputForStatements,
