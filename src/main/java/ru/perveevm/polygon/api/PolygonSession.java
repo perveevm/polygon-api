@@ -18,18 +18,16 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import ru.perveevm.polygon.api.entities.*;
 import ru.perveevm.polygon.api.entities.enums.*;
-import ru.perveevm.polygon.api.exceptions.PolygonSessionBadResponseException;
-import ru.perveevm.polygon.api.exceptions.PolygonSessionException;
-import ru.perveevm.polygon.api.exceptions.PolygonSessionFailedRequestException;
-import ru.perveevm.polygon.api.exceptions.PolygonSessionHTTPErrorException;
+import ru.perveevm.polygon.exceptions.api.PolygonSessionBadResponseException;
+import ru.perveevm.polygon.exceptions.api.PolygonSessionException;
+import ru.perveevm.polygon.exceptions.api.PolygonSessionFailedRequestException;
+import ru.perveevm.polygon.exceptions.api.PolygonSessionHTTPErrorException;
 import ru.perveevm.polygon.api.json.JSONResponse;
 import ru.perveevm.polygon.api.json.JSONResponseStatus;
 import ru.perveevm.polygon.api.utils.ReflectionUtils;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.stream.Collectors;
 

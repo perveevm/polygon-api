@@ -1,4 +1,4 @@
-package ru.perveevm.polygon.api.exceptions;
+package ru.perveevm.polygon.exceptions.api;
 
 import org.apache.http.NameValuePair;
 

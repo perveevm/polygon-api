@@ -2,7 +2,7 @@ package ru.perveevm.polygon.api.utils;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import ru.perveevm.polygon.api.exceptions.PolygonSessionException;
+import ru.perveevm.polygon.exceptions.api.PolygonSessionException;
 
 import java.io.*;
 import java.lang.reflect.Method;
