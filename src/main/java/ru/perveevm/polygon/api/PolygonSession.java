@@ -818,7 +818,22 @@ public class PolygonSession implements Closeable {
             throws PolygonSessionException {
         String json = sendAPIRequestPlain(methodName, parameters);
 
-        JSONResponse jsonResponse = gson.fromJson(json, JSONResponse.class);
+        JSONResponse jsonResponse;
+        long timeout = 100;
+        while (true) {
+            try {
+                jsonResponse = gson.fromJson(json, JSONResponse.class);
+                break;
+            } catch (JsonSyntaxException e) {
+                try {
+                    Thread.currentThread().wait(timeout);
+                } catch (InterruptedException ie) {
+                    throw new PolygonSessionException("Session thread was interrupted", e);
+                }
+                timeout *= 2;
+            }
+        }
+
         if (jsonResponse.getStatus() == JSONResponseStatus.FAILED) {
             throw new PolygonSessionFailedRequestException(BASE_URL + methodName, parameters,
                     jsonResponse.getComment());
