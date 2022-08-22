@@ -12,6 +12,7 @@ import org.apache.http.util.EntityUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import ru.perveevm.polygon.exceptions.user.PolygonUserSessionException;
 
 import java.io.Closeable;
@@ -121,6 +122,27 @@ public class PolygonUserSession implements Closeable {
         problemBuildPackage(null, name, createFull, doVerification);
     }
 
+    public String problemGetShareURL(final int id) throws PolygonUserSessionException {
+        return problemGetShareUrl(id, null);
+    }
+
+    public String problemGetShareUrl(final String name) throws PolygonUserSessionException {
+        return problemGetShareUrl(null, name);
+    }
+
+    private String problemGetShareUrl(final Integer id, final String name) throws PolygonUserSessionException {
+        authorize();
+
+        String html = getProblemPage(id, name).toString();
+        int pos = html.indexOf("supportCopyingToClipboard");
+        int firstQuote = html.indexOf("\"", pos);
+        int secondQuote = html.indexOf("\"", firstQuote + 1);
+        int thirdQuote = html.indexOf("\"", secondQuote + 1);
+        int fourthQuote = html.indexOf("\"", thirdQuote + 1);
+
+        return html.substring(thirdQuote + 1, fourthQuote);
+    }
+
     private void problemBuildPackage(final Integer id, final String name, final boolean createFull,
                                     final boolean doVerification) throws PolygonUserSessionException {
         String session = getSessionBySearchRequest(id, name);
@@ -178,7 +200,7 @@ public class PolygonUserSession implements Closeable {
                 .collect(Collectors.toList());
     }
 
-    private String getSessionBySearchRequest(final Integer id, final String name) throws PolygonUserSessionException {
+    private Element getProblemPage(final Integer id, final String name) throws PolygonUserSessionException {
         List<Element> rows = searchProblemByIdOrName(id, name);
 
         if (rows.isEmpty()) {
@@ -201,7 +223,11 @@ public class PolygonUserSession implements Closeable {
             throw new PolygonUserSessionException("Problem not found");
         }
 
-        Element sessionTag = parseDocument(getHtml(BASE_URL + link)).getElementById("session");
+        return parseDocument(getHtml(BASE_URL + link));
+    }
+
+    private String getSessionBySearchRequest(final Integer id, final String name) throws PolygonUserSessionException {
+        Element sessionTag = getProblemPage(id, name).getElementById("session");
         if (sessionTag == null) {
             throw new PolygonUserSessionException("Cannot find session");
         }
