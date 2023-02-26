@@ -713,17 +713,17 @@ public class PolygonSession implements Closeable {
      * @param packageId    Package ID.
      * @param downloadPath Download file descriptor.
      */
-    public void problemPackage(@NonNull final Integer problemId, @NonNull final Integer packageId,
+    public void problemPackage(@NonNull final Integer problemId, @NonNull final Integer packageId, final String type,
                                @NonNull final File downloadPath)
             throws PolygonSessionException {
-        String stringResponse = sendAPIRequestPlain("problemPackage", "problem.package", problemId, packageId);
+        String stringResponse = sendAPIRequestPlain("problemPackage", "problem.package", problemId, packageId, type);
         try {
             JSONResponse json = gson.fromJson(stringResponse, JSONResponse.class);
             throw new PolygonSessionFailedRequestException(BASE_URL + "problem.package", json.getComment());
         } catch (JsonSyntaxException | NullPointerException ignored) {
         }
 
-        HttpResponse response = getAPIResponse("problemPackage", "problem.package", problemId, packageId);
+        HttpResponse response = getAPIResponse("problemPackage", "problem.package", problemId, packageId, type);
 
         try (BufferedInputStream inputStream = new BufferedInputStream(response.getEntity().getContent())) {
             try (BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(downloadPath))) {
