@@ -17,6 +17,9 @@ import ru.perveevm.polygon.exceptions.user.PolygonUserSessionException;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -128,6 +131,22 @@ public class PolygonUserSession implements Closeable {
 
     public String problemGetShareUrl(final String name) throws PolygonUserSessionException {
         return problemGetShareUrl(null, name);
+    }
+
+    public void contestGetStatementsFromPackages(final int contestId, final Path downloadPath)
+            throws PolygonUserSessionException {
+        authorize();
+
+        HttpGet request = new HttpGet(
+                BASE_URL + "/contest/statements/contest-" + contestId + "-ru.pdf?contestId=" + contestId +
+                        "&action=previewAsPDF&language=russian&fromWorkingCopies=false&ccid=" + ccid);
+        try {
+            HttpResponse response = client.execute(request);
+            InputStream is = response.getEntity().getContent();
+            Files.copy(is, downloadPath);
+        } catch (IOException e) {
+            throw new PolygonUserSessionException("Could not download statements", e);
+        }
     }
 
     private String problemGetShareUrl(final Integer id, final String name) throws PolygonUserSessionException {
