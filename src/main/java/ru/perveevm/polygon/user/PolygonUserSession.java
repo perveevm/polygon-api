@@ -12,7 +12,6 @@ import org.apache.http.util.EntityUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import ru.perveevm.polygon.exceptions.user.PolygonUserSessionException;
 
 import java.io.Closeable;
@@ -26,6 +25,8 @@ import java.util.stream.Collectors;
 
 /**
  * @author Perveev Mike (perveev_m@mail.ru)
+ * <p>
+ * Basic class for performing Polygon user requests
  */
 public class PolygonUserSession implements Closeable {
     private static final String BASE_URL = "https://polygon.codeforces.com/";
@@ -37,6 +38,12 @@ public class PolygonUserSession implements Closeable {
 
     private String ccid = null;
 
+    /**
+     * Initializes Polygon user session using provided login and password
+     *
+     * @param login    Polygon user login
+     * @param password Polygon user password
+     */
     public PolygonUserSession(final String login, final String password) {
         this.login = login;
         this.password = password;
@@ -47,6 +54,11 @@ public class PolygonUserSession implements Closeable {
         client.close();
     }
 
+    /**
+     * Authenticates user in Polygon using given login and password
+     *
+     * @throws PolygonUserSessionException if HTTP error happened while performing request
+     */
     public void authorize() throws PolygonUserSessionException {
         if (isAuthorized()) {
             return;
@@ -76,10 +88,22 @@ public class PolygonUserSession implements Closeable {
         sendPost(BASE_URL + "login", parameters);
     }
 
+    /**
+     * Checks if user is authenticated
+     *
+     * @return {@code true} if user is authenticated and {@code false} otherwise
+     * @throws PolygonUserSessionException if HTTP error happened while performing request
+     */
     public boolean isAuthorized() throws PolygonUserSessionException {
         return parseDocument(getHtml(BASE_URL)).getElementsByTag("a").stream().anyMatch(e -> e.text().equals("Logout"));
     }
 
+    /**
+     * Creates new problem in Polygon
+     *
+     * @param name created problem name
+     * @throws PolygonUserSessionException if there already exists a problem with such name
+     */
     public void problemCreate(final String name) throws PolygonUserSessionException {
         authorize();
         List<NameValuePair> parameters = List.of(
@@ -95,14 +119,32 @@ public class PolygonUserSession implements Closeable {
         }
     }
 
+    /**
+     * Commits all changes at problem with given ID
+     *
+     * @param id problem ID in Polygon
+     * @throws PolygonUserSessionException if HTTP error happened while performing request
+     */
     public void problemCommit(final int id) throws PolygonUserSessionException {
         problemCommit(id, null);
     }
 
+    /**
+     * Commits all changes at problem with given name
+     *
+     * @param name problem name in Polygon
+     * @throws PolygonUserSessionException if HTTP error happened while performing request
+     */
     public void problemCommit(final String name) throws PolygonUserSessionException {
         problemCommit(null, name);
     }
 
+    /**
+     * Deletes problem with given ID
+     *
+     * @param id problem ID in Polygon
+     * @throws PolygonUserSessionException if HTTP error happened while performing request
+     */
     public void problemDelete(final int id) throws PolygonUserSessionException {
         String session = getSessionBySearchRequest(id, null);
         List<NameValuePair> parameters = List.of(
@@ -115,24 +157,61 @@ public class PolygonUserSession implements Closeable {
         sendPost(BASE_URL + "deleteProblem", parameters);
     }
 
+    /**
+     * Builds package for problem with given ID
+     *
+     * @param id             problem ID in Polygon
+     * @param createFull     if full package is required
+     * @param doVerification if verification is required
+     * @throws PolygonUserSessionException if HTTP error happened while performing request
+     */
     public void problemBuildPackage(final int id, final boolean createFull, final boolean doVerification)
             throws PolygonUserSessionException {
         problemBuildPackage(id, null, createFull, doVerification);
     }
 
+    /**
+     * Builds package for problem with given name
+     *
+     * @param name           problem name in Polygon
+     * @param createFull     if full package is required
+     * @param doVerification if verification is requireD
+     * @throws PolygonUserSessionException if HTTP error happened while performing request
+     */
     public void problemBuildPackage(final String name, final boolean createFull, final boolean doVerification)
             throws PolygonUserSessionException {
         problemBuildPackage(null, name, createFull, doVerification);
     }
 
+    /**
+     * Gets problem link with salt (used to import problem in Codeforces contest)
+     *
+     * @param id problem ID in Polygon
+     * @return {@link String} with problem link
+     * @throws PolygonUserSessionException if HTTP error happened while performing request
+     */
     public String problemGetShareURL(final int id) throws PolygonUserSessionException {
         return problemGetShareUrl(id, null);
     }
 
+    /**
+     * Gets problem link with salt (used to import problem in Codeforces contest)
+     *
+     * @param name problem name in Polygon
+     * @return {@link String} with problem link
+     * @throws PolygonUserSessionException if HTTP error happened while performing request
+     */
     public String problemGetShareUrl(final String name) throws PolygonUserSessionException {
         return problemGetShareUrl(null, name);
     }
 
+    /**
+     * Downloads russian PDF statements from package
+     *
+     * @param contestId    contest ID in Polygon
+     * @param downloadPath {@link Path} where to save PDF statements
+     * @throws PolygonUserSessionException if HTTP error happened while performing request
+     */
     public void contestGetStatementsFromPackages(final int contestId, final Path downloadPath)
             throws PolygonUserSessionException {
         authorize();
@@ -163,7 +242,7 @@ public class PolygonUserSession implements Closeable {
     }
 
     private void problemBuildPackage(final Integer id, final String name, final boolean createFull,
-                                    final boolean doVerification) throws PolygonUserSessionException {
+                                     final boolean doVerification) throws PolygonUserSessionException {
         String session = getSessionBySearchRequest(id, name);
         List<NameValuePair> parameters = List.of(
                 new BasicNameValuePair("action", "create"),
