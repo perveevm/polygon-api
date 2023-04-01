@@ -821,6 +821,9 @@ public class PolygonSession implements Closeable {
         JSONResponse jsonResponse;
         long timeout = 100;
         while (true) {
+            if (timeout >= 60000) {
+                throw new PolygonSessionException("Polygon API doesn't respond, please try later");
+            }
             try {
                 jsonResponse = gson.fromJson(json, JSONResponse.class);
                 break;
@@ -829,6 +832,9 @@ public class PolygonSession implements Closeable {
                     Thread.currentThread().wait(timeout);
                 } catch (InterruptedException ie) {
                     throw new PolygonSessionException("Session thread was interrupted", e);
+                } catch (RuntimeException ie) {
+                    System.err.println("WARNING: unexpected runtime error happened, retrying request...");
+                    System.err.println(ie.getMessage());
                 }
                 timeout *= 2;
             }
