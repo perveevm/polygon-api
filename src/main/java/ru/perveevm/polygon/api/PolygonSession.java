@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
  */
 public class PolygonSession implements Closeable {
     private final static String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
-    private final static String BASE_URL = "https://polygon.codeforces.com/api/";
+    private String BASE_URL = "https://polygon.codeforces.com/api/";
 
     private final String key;
     private final String secret;
@@ -73,6 +73,15 @@ public class PolygonSession implements Closeable {
      */
     public void setPin(final String pin) {
         this.pin = pin;
+    }
+
+    /**
+     * Sets URL to Polygon API gateway. The default value is
+     * <a href="https://polygon.codeforces.com/api/">https://polygon.codeforces.com/api/</a>
+     * @param baseUrl URL to Polygon API gateway
+     */
+    public void setBaseUrl(final String baseUrl) {
+        this.BASE_URL = baseUrl;
     }
 
     /**

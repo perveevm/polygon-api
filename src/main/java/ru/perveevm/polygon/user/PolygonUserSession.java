@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
  * Basic class for performing Polygon user requests
  */
 public class PolygonUserSession implements Closeable {
-    private static final String BASE_URL = "https://polygon.codeforces.com/";
+    private String BASE_URL = "https://polygon.codeforces.com/";
 
     private final String login;
     private final String password;
@@ -52,6 +52,15 @@ public class PolygonUserSession implements Closeable {
     @Override
     public void close() throws IOException {
         client.close();
+    }
+
+    /**
+     * Sets Polygon URL. The default value is
+     * <a href="https://polygon.codeforces.com/">https://polygon.codeforces.com/</a>
+     * @param baseUrl Polygon URL
+     */
+    public void setBaseUrl(final String baseUrl) {
+        this.BASE_URL = baseUrl;
     }
 
     /**
