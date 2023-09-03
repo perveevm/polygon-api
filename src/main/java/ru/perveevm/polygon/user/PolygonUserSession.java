@@ -334,6 +334,7 @@ public class PolygonUserSession implements Closeable {
     }
 
     private String getSessionBySearchRequest(final Integer id, final String name) throws PolygonUserSessionException {
+        authorize();
         Element sessionTag = getProblemPage(id, name).getElementById("session");
         if (sessionTag == null) {
             throw new PolygonUserSessionException("Cannot find session");
