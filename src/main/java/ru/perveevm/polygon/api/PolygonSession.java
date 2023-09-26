@@ -60,6 +60,19 @@ public class PolygonSession implements Closeable {
         this.secret = secret;
     }
 
+    /**
+     * Initializes Polygon session with API key and Polygon API URL
+     *
+     * @param key     API key from Polygon
+     * @param secret  API secret parameter from Polygon
+     * @param baseUrl URL to Polygon API, for example <a href="https://polygon.codeforces.com/api/">https://polygon.codeforces.com/api/</a>
+     */
+    public PolygonSession(final String key, final String secret, final String baseUrl) {
+        this.key = key;
+        this.secret = secret;
+        this.BASE_URL = baseUrl;
+    }
+
     @Override
     public void close() throws IOException {
         client.close();
@@ -73,15 +86,6 @@ public class PolygonSession implements Closeable {
      */
     public void setPin(final String pin) {
         this.pin = pin;
-    }
-
-    /**
-     * Sets URL to Polygon API gateway. The default value is
-     * <a href="https://polygon.codeforces.com/api/">https://polygon.codeforces.com/api/</a>
-     * @param baseUrl URL to Polygon API gateway
-     */
-    public void setBaseUrl(final String baseUrl) {
-        this.BASE_URL = baseUrl;
     }
 
     /**

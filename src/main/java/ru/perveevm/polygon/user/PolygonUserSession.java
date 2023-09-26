@@ -49,18 +49,22 @@ public class PolygonUserSession implements Closeable {
         this.password = password;
     }
 
+    /**
+     * Initializes Polygon user session using provided login, password ans Polygon URL
+     *
+     * @param login    Polygon user login
+     * @param password Polygon user password
+     * @param baseUrl  Polygon URL, for example <a href="https://polygon.codeforces.com">https://polygon.codeforces.com/</a>
+     */
+    public PolygonUserSession(final String login, final String password, final String baseUrl) {
+        this.login = login;
+        this.password = password;
+        this.BASE_URL = baseUrl;
+    }
+
     @Override
     public void close() throws IOException {
         client.close();
-    }
-
-    /**
-     * Sets Polygon URL. The default value is
-     * <a href="https://polygon.codeforces.com/">https://polygon.codeforces.com/</a>
-     * @param baseUrl Polygon URL
-     */
-    public void setBaseUrl(final String baseUrl) {
-        this.BASE_URL = baseUrl;
     }
 
     /**
