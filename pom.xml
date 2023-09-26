@@ -7,6 +7,36 @@
     <groupId>ru.perveevm</groupId>
     <artifactId>polygon-api</artifactId>
     <version>1.0</version>
+    <packaging>jar</packaging>
+
+    <name>Polygon API</name>
+    <description>
+        A small library for easy access and usage of Polygon API.
+        Polygon is a platform for creating and sharing Competitive Programming problems and contests.
+    </description>
+    <url>https://github.com/perveevm/polygon-api</url>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://www.opensource.org/licenses/mit-license.php</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Mike Perveev</name>
+            <email>perveev_m@mail.ru</email>
+            <organization>ITMO University</organization>
+            <organizationUrl>https://itmo.ru</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/perveevm/polygon-api.git</connection>
+        <developerConnection>scm:git:ssh://github.com:perveevm/polygon-api.git</developerConnection>
+        <url>https://github.com/perveevm/polygon-api/tree/master</url>
+    </scm>
 
     <properties>
         <maven.compiler.source>15</maven.compiler.source>
