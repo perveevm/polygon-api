@@ -117,6 +117,7 @@ public class PolygonUserSession implements Closeable {
      * @param name created problem name
      * @throws PolygonUserSessionException if there already exists a problem with such name
      */
+    @Deprecated(since = "1.2", forRemoval = true)
     public void problemCreate(final String name) throws PolygonUserSessionException {
         authorize();
         List<NameValuePair> parameters = List.of(
@@ -138,6 +139,7 @@ public class PolygonUserSession implements Closeable {
      * @param id problem ID in Polygon
      * @throws PolygonUserSessionException if HTTP error happened while performing request
      */
+    @Deprecated(since = "1.2", forRemoval = true)
     public void problemCommit(final int id) throws PolygonUserSessionException {
         problemCommit(id, null);
     }
@@ -148,6 +150,7 @@ public class PolygonUserSession implements Closeable {
      * @param name problem name in Polygon
      * @throws PolygonUserSessionException if HTTP error happened while performing request
      */
+    @Deprecated(since = "1.2", forRemoval = true)
     public void problemCommit(final String name) throws PolygonUserSessionException {
         problemCommit(null, name);
     }
@@ -178,6 +181,7 @@ public class PolygonUserSession implements Closeable {
      * @param doVerification if verification is required
      * @throws PolygonUserSessionException if HTTP error happened while performing request
      */
+    @Deprecated(since = "1.2", forRemoval = true)
     public void problemBuildPackage(final int id, final boolean createFull, final boolean doVerification)
             throws PolygonUserSessionException {
         problemBuildPackage(id, null, createFull, doVerification);
@@ -191,6 +195,7 @@ public class PolygonUserSession implements Closeable {
      * @param doVerification if verification is requireD
      * @throws PolygonUserSessionException if HTTP error happened while performing request
      */
+    @Deprecated(since = "1.2", forRemoval = true)
     public void problemBuildPackage(final String name, final boolean createFull, final boolean doVerification)
             throws PolygonUserSessionException {
         problemBuildPackage(null, name, createFull, doVerification);
