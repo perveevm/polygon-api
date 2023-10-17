@@ -4,9 +4,9 @@ import ru.perveevm.polygon.api.entities.enums.TestGroupFeedbackPolicy;
 import ru.perveevm.polygon.api.entities.enums.TestGroupPointsPolicy;
 
 /**
- * @author Perveev Mike (perveev_m@mail.ru)
- * <p>
  * Represents test group in a problem.
+ *
+ * @author Perveev Mike (perveev_m@mail.ru)
  */
 public class TestGroup {
     private String name;

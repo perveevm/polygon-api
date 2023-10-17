@@ -15,9 +15,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- * @author Perveev Mike (perveev_m@mail.ru)
- * <p>
  * Represents some utils working with Java reflection to perform requests easier.
+ *
+ * @author Perveev Mike (perveev_m@mail.ru)
  */
 public class ReflectionUtils {
     /**

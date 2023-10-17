@@ -3,9 +3,9 @@ package ru.perveevm.polygon.api.entities;
 import ru.perveevm.polygon.api.entities.enums.SolutionTag;
 
 /**
- * @author Perveev Mike (perveev_m@mail.ru)
- * <p>
  * Represents the problem solution.
+ *
+ * @author Perveev Mike (perveev_m@mail.ru)
  */
 public class Solution {
     private String name;

@@ -1,9 +1,9 @@
 package ru.perveevm.polygon.api.entities;
 
 /**
- * @author Perveev Mike (perveev_m@mail.ru)
- * <p>
  * Represents a resource, source or aux file.
+ *
+ * @author Perveev Mike (perveev_m@mail.ru)
  */
 public class ProblemFile {
     private String name;

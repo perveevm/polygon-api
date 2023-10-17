@@ -3,9 +3,9 @@ package ru.perveevm.polygon.api.entities;
 import ru.perveevm.polygon.api.entities.enums.CheckerTestVerdict;
 
 /**
- * @author Perveev Mike (perveev_m@mail.ru)
- * <p>
  * Represents a checker’s test for the problem.
+ *
+ * @author Perveev Mike (perveev_m@mail.ru)
  */
 public class CheckerTest {
     private Integer index;

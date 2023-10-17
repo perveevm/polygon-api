@@ -32,9 +32,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * @author Perveev Mike (perveev_m@mail.ru)
- * <p>
  * Basic class for performing Polygon API calls.
+ *
+ * @author Perveev Mike (perveev_m@mail.ru)
  */
 public class PolygonSession implements Closeable {
     private final static String ALPHABET = "abcdefghijklmnopqrstuvwxyz";

@@ -5,12 +5,14 @@ import org.apache.http.NameValuePair;
 import java.util.List;
 
 /**
- * @author Perveev Mike (perveev_m@mail.ru)
- * <p>
  * Thrown when the response JSON status is FAILED.
+ *
+ * @author Perveev Mike (perveev_m@mail.ru)
  */
 public class PolygonSessionFailedRequestException extends PolygonSessionException {
     /**
+     * Constructs {@link PolygonSessionFailedRequestException} using request URL, parameters and response API comment.
+     *
      * @param url        Request URL.
      * @param parameters A {@link List} of parameters.
      * @param comment    A response comment from JSON.
@@ -21,6 +23,8 @@ public class PolygonSessionFailedRequestException extends PolygonSessionExceptio
     }
 
     /**
+     * Constructs {@link PolygonSessionFailedRequestException} using request URL, parameters, response API comment and cause exception.
+     *
      * @param url        Request URL.
      * @param parameters A {@link List} of parameters.
      * @param comment    A response comment from JSON.
@@ -32,6 +36,8 @@ public class PolygonSessionFailedRequestException extends PolygonSessionExceptio
     }
 
     /**
+     * Constructs {@link PolygonSessionFailedRequestException} using request URL and response API comment.
+     *
      * @param url     Request URL.
      * @param comment A response comment from JSON.
      */

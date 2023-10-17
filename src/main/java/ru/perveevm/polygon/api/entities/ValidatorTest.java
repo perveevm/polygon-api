@@ -3,9 +3,9 @@ package ru.perveevm.polygon.api.entities;
 import ru.perveevm.polygon.api.entities.enums.ValidatorTestVerdict;
 
 /**
- * @author Perveev Mike (perveev_m@mail.ru)
- * <p>
  * Represents a validator’s test for the problem.
+ *
+ * @author Perveev Mike (perveev_m@mail.ru)
  */
 public class ValidatorTest {
     private Integer index;

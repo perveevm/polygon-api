@@ -5,12 +5,14 @@ import org.apache.http.NameValuePair;
 import java.util.List;
 
 /**
- * @author Perveev Mike (perveev_m@mail.ru)
- * <p>
  * Thrown when a HTTP error occured while sendings POST request.
+ *
+ * @author Perveev Mike (perveev_m@mail.ru)
  */
 public class PolygonSessionHTTPErrorException extends PolygonSessionException {
     /**
+     * Constructs {@link PolygonSessionHTTPErrorException} using request URL and parameters.
+     *
      * @param url        Request URL.
      * @param parameters A {@link List} of parameters.
      */
@@ -19,6 +21,8 @@ public class PolygonSessionHTTPErrorException extends PolygonSessionException {
     }
 
     /**
+     * Constructs {@link PolygonSessionHTTPErrorException} using request URL, parameters and cause exception.
+     *
      * @param url        Request URL.
      * @param parameters A {@link List} of parameters.
      * @param cause      Cause of this exception.
@@ -29,6 +33,8 @@ public class PolygonSessionHTTPErrorException extends PolygonSessionException {
     }
 
     /**
+     * Constructs {@link PolygonSessionHTTPErrorException} using request URL and cause exception.
+     *
      * @param url   Request URL.
      * @param cause Cause of this exception.
      */

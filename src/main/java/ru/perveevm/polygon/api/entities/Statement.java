@@ -1,9 +1,9 @@
 package ru.perveevm.polygon.api.entities;
 
 /**
- * @author Perveev Mike (perveev_m@mail.ru)
- * <p>
  * Represents problem statements.
+ *
+ * @author Perveev Mike (perveev_m@mail.ru)
  */
 public class Statement {
     private String encoding;

@@ -1,9 +1,9 @@
 package ru.perveevm.polygon.api.entities;
 
 /**
- * @author Perveev Mike (perveev_m@mail.ru)
- * <p>
  * Represents a test in a problem.
+ *
+ * @author Perveev Mike (perveev_m@mail.ru)
  */
 public class ProblemTest {
     private Integer index;

@@ -24,9 +24,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
+ * Basic class for performing Polygon user requests.
+ *
  * @author Perveev Mike (perveev_m@mail.ru)
- * <p>
- * Basic class for performing Polygon user requests
  */
 public class PolygonUserSession implements Closeable {
     private String BASE_URL = "https://polygon.codeforces.com/";

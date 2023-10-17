@@ -3,9 +3,9 @@ package ru.perveevm.polygon.api.json;
 import com.google.gson.JsonElement;
 
 /**
- * @author Perveev Mike (perveev_m@mail.ru)
- * <p>
  * Represents a JSON response.
+ *
+ * @author Perveev Mike (perveev_m@mail.ru)
  */
 public class JSONResponse {
     private JSONResponseStatus status;

@@ -1,9 +1,9 @@
 package ru.perveevm.polygon.api.entities.enums;
 
 /**
+ * Represents a type of the resource.
+ *
  * @author Perveev Mike (perveev_m@mail.ru)
- * <p>
- * Represents a type of a resource.
  */
 public enum ResourceAsset {
     /**

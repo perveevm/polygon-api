@@ -1,9 +1,9 @@
 package ru.perveevm.polygon.api.entities.enums;
 
 /**
- * @author Perveev Mike (perveev_m@mail.ru)
- * <p>
  * Represents a stage when a resource is used.
+ *
+ * @author Perveev Mike (perveev_m@mail.ru)
  */
 public enum ResourceStage {
     /**

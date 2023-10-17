@@ -1,9 +1,9 @@
 package ru.perveevm.polygon.api.json;
 
 /**
- * @author Perveev Mike (perveev_m@mail.ru)
- * <p>
  * Represents a response status.
+ *
+ * @author Perveev Mike (perveev_m@mail.ru)
  */
 public enum JSONResponseStatus {
     /**

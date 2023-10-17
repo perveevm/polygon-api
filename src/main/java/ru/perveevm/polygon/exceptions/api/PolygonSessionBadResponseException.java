@@ -5,12 +5,14 @@ import org.apache.http.NameValuePair;
 import java.util.List;
 
 /**
- * @author Perveev Mike (perveev_m@mail.ru)
- * <p>
  * Thrown when the response is bad: either the response code is not 200, or the JSON is invalid.
+ *
+ * @author Perveev Mike (perveev_m@mail.ru)
  */
 public class PolygonSessionBadResponseException extends PolygonSessionException {
     /**
+     * Creates a {@link PolygonSessionBadResponseException} using request URL, parameters and response HTTP code.
+     *
      * @param url          Request URL.
      * @param parameters   Request parameters.
      * @param responseCode Response HTTP code.
@@ -21,6 +23,9 @@ public class PolygonSessionBadResponseException extends PolygonSessionException 
     }
 
     /**
+     * Creates a {@link PolygonSessionBadResponseException} using request URL, parameters, response HTTP code
+     * and cause exception.
+     *
      * @param url          Request URL.
      * @param parameters   Request parameters.
      * @param responseCode Response HTTP code.
@@ -33,6 +38,8 @@ public class PolygonSessionBadResponseException extends PolygonSessionException 
     }
 
     /**
+     * Creates a {@link PolygonSessionBadResponseException} using request URL and parameters.
+     *
      * @param url        Request URL.
      * @param parameters Request parameters.
      */
@@ -41,6 +48,8 @@ public class PolygonSessionBadResponseException extends PolygonSessionException 
     }
 
     /**
+     * Creates a {@link PolygonSessionBadResponseException} using request URL, parameters and cause exception.
+     *
      * @param url        Request URL.
      * @param parameters Request parameters.
      * @param cause      Cause of this exception.

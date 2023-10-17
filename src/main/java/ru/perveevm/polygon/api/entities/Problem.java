@@ -3,9 +3,9 @@ package ru.perveevm.polygon.api.entities;
 import ru.perveevm.polygon.api.entities.enums.ProblemAccessType;
 
 /**
- * @author Perveev Mike (perveev_m@mail.ru)
- * <p>
  * Represents problem of a contest.
+ *
+ * @author Perveev Mike (perveev_m@mail.ru)
  */
 public class Problem {
     private Integer id;
