@@ -15,17 +15,10 @@ All entity classes, for example, `Problem`, `ProblemPackage`, etc., are in the `
 To add it into your pom.xml use:
 
 ```xml
-<repositories>
-  <repository>
-      <id>jitpack.io</id>
-      <url>https://jitpack.io</url>
-  </repository>
-</repositories>
-
 <dependency>
-    <groupId>com.github.perveevm</groupId>
+    <groupId>ru.perveevm</groupId>
     <artifactId>polygon-api</artifactId>
-    <version>v0.5.2</version>
+    <version>Put the version you want here</version>
 </dependency>
 ```
 
@@ -35,20 +28,6 @@ There is also a developing part of this project – `PolygonUserSession`. It imp
 
 To add it into your pom.xml use:
 
-```xml
-<repositories>
-  <repository>
-      <id>jitpack.io</id>
-      <url>https://jitpack.io</url>
-  </repository>
-</repositories>
-
-<dependency>
-    <groupId>com.github.perveevm</groupId>
-    <artifactId>polygon-api</artifactId>
-    <version>v0.6</version>
-</dependency>
-```
 
 ### Dependencies
 
