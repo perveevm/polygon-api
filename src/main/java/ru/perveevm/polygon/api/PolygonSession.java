@@ -104,6 +104,16 @@ public class PolygonSession implements Closeable {
     }
 
     /**
+     * Create a new empty problem. Returns a created Problem.
+     *
+     * @param name Name of problem being created.
+     * @return A created {@link Problem}.
+     */
+    public Problem problemCreate(@NonNull final String name) throws PolygonSessionException {
+        return gson.fromJson(sendAPIRequest("problemCreate", "problem.create", name), Problem.class);
+    }
+
+    /**
      * Returns problem general info.
      *
      * @param problemId Problem ID.
@@ -126,8 +136,21 @@ public class PolygonSession implements Closeable {
     public void problemUpdateInfo(@NonNull final Integer problemId, final String inputFile, final String outputFile,
                                   final Boolean interactive, final Integer timeLimit, final Integer memoryLimit)
             throws PolygonSessionException {
-        sendAPIRequest("problemUpdateInfo", "problem.updateInfo", problemId, inputFile, outputFile, interactive,
-                timeLimit, memoryLimit);
+        sendAPIRequest("problemUpdateInfo", "problem.updateInfo", problemId, inputFile, outputFile,
+                interactive, timeLimit, memoryLimit);
+    }
+
+    /**
+     * Commits problem changes. All parameters are optional.
+     *
+     * @param problemId    Problem ID.
+     * @param minorChanges If <code>true</code>, no email notification will be sent.
+     * @param message      Problem’s commit message.
+     */
+    public void problemCommitChanges(@NonNull final Integer problemId, final Boolean minorChanges, final String message)
+            throws PolygonSessionException {
+        sendAPIRequest("problemCommitChanges", "problem.commitChanges", problemId, minorChanges,
+                message);
     }
 
     /**
@@ -146,23 +169,24 @@ public class PolygonSession implements Closeable {
      * Update or create a problem’s statement. All parameters except for <code>lang</code> and <code>problemId</code>
      * can be <code>null</code>.
      *
-     * @param problemId Problem ID.
-     * @param lang      Problem language.
-     * @param encoding  Statement encoding.
-     * @param name      Problem name.
-     * @param legend    Problem legend.
-     * @param input     Problem input format.
-     * @param output    Problem output format.
-     * @param scoring   Problem scoring description.
-     * @param notes     Problem notes.
-     * @param tutorial  Problem tutorial.
+     * @param problemId   Problem ID.
+     * @param lang        Problem language.
+     * @param encoding    Statement encoding.
+     * @param name        Problem name.
+     * @param legend      Problem legend.
+     * @param input       Problem input format.
+     * @param output      Problem output format.
+     * @param scoring     Problem scoring description.
+     * @param interaction Problem interaction protocol (only for interactive problems)
+     * @param notes       Problem notes.
+     * @param tutorial    Problem tutorial.
      */
     public void problemSaveStatement(@NonNull final Integer problemId, @NonNull final String lang,
                                      final String encoding, final String name, final String legend, final String input,
-                                     final String output, final String scoring, final String notes,
-                                     final String tutorial) throws PolygonSessionException {
-        sendAPIRequest("problemSaveStatement", "problem.saveStatement", problemId, lang, encoding, name, legend, input,
-                output, scoring, notes, tutorial);
+                                     final String output, final String scoring, final String interaction,
+                                     final String notes, final String tutorial) throws PolygonSessionException {
+        sendAPIRequest("problemSaveStatement", "problem.saveStatement", problemId, lang, encoding,
+                name, legend, input, output, scoring, interaction, notes, tutorial);
     }
 
     /**
@@ -234,6 +258,68 @@ public class PolygonSession implements Closeable {
      */
     public String problemInteractor(@NonNull final Integer problemId) throws PolygonSessionException {
         return gson.fromJson(sendAPIRequest("problemInteractor", "problem.interactor", problemId), String.class);
+    }
+
+    /**
+     * Returns a list of validator tests for the problem.
+     *
+     * @param problemId Problem ID.
+     * @return An array of {@link ValidatorTest} objects.
+     */
+    public ValidatorTest[] problemValidatorTests(@NonNull final Integer problemId) throws PolygonSessionException {
+        return gson.fromJson(sendAPIRequest("problemValidatorTests", "problem.validatorTests", problemId), ValidatorTest[].class);
+    }
+
+    /**
+     * Add or edit validator test. All parameters except for <code>testIndex</code>, <code>testInput</code>
+     * and <code>testVerdict</code> are optional.
+     *
+     * @param problemId     Problem ID.
+     * @param checkExisting If <code>true</code>, only adding validator’s test is allowed.
+     * @param testVerdict   Validator test verdict.
+     * @param testIndex     Index of a validator test.
+     * @param testInput     Input of a validator test.
+     * @param testGroup     Test group (groups should be enabled for the testset).
+     * @param testset       Testset name.
+     */
+    public void problemSaveValidatorTest(@NonNull final Integer problemId, final Boolean checkExisting,
+                                         @NonNull final ValidatorTestVerdict testVerdict,
+                                         @NonNull final Integer testIndex, @NonNull final String testInput,
+                                         final String testGroup, final String testset) throws PolygonSessionException {
+        sendAPIRequest("problemSaveValidatorTest", "problem.saveValidatorTest", problemId,
+                checkExisting, testVerdict, testIndex, testInput, testGroup, testset);
+    }
+
+    /**
+     * Returns a list of checker tests for the problem.
+     *
+     * @param problemId Problem ID.
+     * @return An array of {@link CheckerTest} objects.
+     */
+    public CheckerTest[] problemCheckerTests(@NonNull final Integer problemId) throws PolygonSessionException {
+        return gson.fromJson(sendAPIRequest("problemCheckerTests",
+                "problem.checkerTests", problemId), CheckerTest[].class);
+    }
+
+    /**
+     * Adds or edits checker test. All parameters except for <code>testIndex</code>, <code>testInput</code>,
+     * <code>testAnswer</code>, <code>testOutput</code> and <code>testVerdict</code> are optional.
+     *
+     * @param problemId     Problem ID.
+     * @param checkExisting If <code>true</code>, only adding checker test is allowed.
+     * @param testVerdict   Checker’s test verdict.
+     * @param testIndex     Index of a checker test.
+     * @param testInput     Input of a checker test.
+     * @param testOutput    Output of a checker test.
+     * @param testAnswer    Answer of a checker test.
+     */
+    public void problemSaveCheckerTest(@NonNull final Integer problemId, final Boolean checkExisting,
+                                       @NonNull final CheckerTestVerdict testVerdict,
+                                       @NonNull final Integer testIndex, @NonNull final String testInput,
+                                       @NonNull final String testOutput, @NonNull final String testAnswer)
+            throws PolygonSessionException {
+        sendAPIRequest("problemSaveCheckerTest", "problem.saveCheckerTest", problemId, checkExisting,
+                testVerdict, testIndex, testInput, testOutput, testAnswer);
     }
 
     /**
@@ -750,6 +836,23 @@ public class PolygonSession implements Closeable {
         } catch (IOException e) {
             throw new PolygonSessionHTTPErrorException(BASE_URL + "problem.package", e);
         }
+    }
+
+    /**
+     * Starts to build a new package.
+     *
+     * @param problemId Problem ID.
+     * @param full      Defines whether to build full package, contains "standard", "linux" and "windows" packages,
+     *                  or only "standard". Standard packages don't contain generated tests, but contain windows
+     *                  executables and scripts for windows and linux via wine. Linux packages contain generated tests,
+     *                  but don't contain compiled binaries. Windows packages contain generated tests and compiled
+     *                  binaries for Windows.
+     * @param verify    If that parameter is <code>true</code> all solutions will be invoked on all tests to be sure
+     *                  that tags are valid. Stress tests will run the checker to verify its credibility.
+     */
+    public void problemBuildPackage(@NonNull final Integer problemId, @NonNull final Boolean full,
+                                    @NonNull final Boolean verify) throws PolygonSessionException {
+        sendAPIRequest("problemBuildPackage", "problem.buildPackage", problemId, full, verify);
     }
 
     /**
