@@ -28,6 +28,7 @@ import java.util.stream.Collectors;
  *
  * @author Perveev Mike (perveev_m@mail.ru)
  */
+@SuppressWarnings("unused")
 public class PolygonUserSession implements Closeable {
     private String BASE_URL = "https://polygon.codeforces.com/";
 
