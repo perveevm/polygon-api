@@ -28,7 +28,6 @@ import java.util.stream.Collectors;
  *
  * @author Perveev Mike (perveev_m@mail.ru)
  */
-@SuppressWarnings("unused")
 public class PolygonUserSession implements Closeable {
     private String BASE_URL = "https://polygon.codeforces.com/";
 
@@ -51,7 +50,7 @@ public class PolygonUserSession implements Closeable {
     }
 
     /**
-     * Initializes Polygon user session using provided login, password ans Polygon URL
+     * Initializes Polygon user session using provided login, password and Polygon URL
      *
      * @param login    Polygon user login
      * @param password Polygon user password
@@ -162,6 +161,7 @@ public class PolygonUserSession implements Closeable {
      * @param id problem ID in Polygon
      * @throws PolygonUserSessionException if HTTP error happened while performing request
      */
+    @SuppressWarnings("unused")
     public void problemDelete(final int id) throws PolygonUserSessionException {
         String session = getSessionBySearchRequest(id, null);
         List<NameValuePair> parameters = List.of(
@@ -209,6 +209,7 @@ public class PolygonUserSession implements Closeable {
      * @return {@link String} with problem link
      * @throws PolygonUserSessionException if HTTP error happened while performing request
      */
+    @SuppressWarnings("unused")
     public String problemGetShareURL(final int id) throws PolygonUserSessionException {
         return problemGetShareUrl(id, null);
     }
@@ -220,6 +221,7 @@ public class PolygonUserSession implements Closeable {
      * @return {@link String} with problem link
      * @throws PolygonUserSessionException if HTTP error happened while performing request
      */
+    @SuppressWarnings("unused")
     public String problemGetShareUrl(final String name) throws PolygonUserSessionException {
         return problemGetShareUrl(null, name);
     }
@@ -231,6 +233,7 @@ public class PolygonUserSession implements Closeable {
      * @param downloadPath {@link Path} where to save PDF statements
      * @throws PolygonUserSessionException if HTTP error happened while performing request
      */
+    @SuppressWarnings("unused")
     public void contestGetStatementsFromPackages(final int contestId, final Path downloadPath)
             throws PolygonUserSessionException {
         authorize();

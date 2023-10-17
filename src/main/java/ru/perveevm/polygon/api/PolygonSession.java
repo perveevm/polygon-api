@@ -84,6 +84,7 @@ public class PolygonSession implements Closeable {
      *
      * @param pin Polygon pin code for problem or contest access.
      */
+    @SuppressWarnings("unused")
     public void setPin(final String pin) {
         this.pin = pin;
     }
@@ -97,6 +98,7 @@ public class PolygonSession implements Closeable {
      * @param owner       Searches problem by owner, can be <code>null</code>.
      * @return Array of {@link Problem} objects.
      */
+    @SuppressWarnings("unused")
     public Problem[] problemsList(final Boolean showDeleted, final Integer id, final String name, final String owner)
             throws PolygonSessionException {
         return gson.fromJson(sendAPIRequest("problemsList", "problems.list", showDeleted, id, name, owner),
@@ -109,6 +111,7 @@ public class PolygonSession implements Closeable {
      * @param name Name of problem being created.
      * @return A created {@link Problem}.
      */
+    @SuppressWarnings("unused")
     public Problem problemCreate(@NonNull final String name) throws PolygonSessionException {
         return gson.fromJson(sendAPIRequest("problemCreate", "problem.create", name), Problem.class);
     }
@@ -119,6 +122,7 @@ public class PolygonSession implements Closeable {
      * @param problemId Problem ID.
      * @return {@link ProblemInfo} object.
      */
+    @SuppressWarnings("unused")
     public ProblemInfo problemInfo(@NonNull final Integer problemId) throws PolygonSessionException {
         return gson.fromJson(sendAPIRequest("problemInfo", "problem.info", problemId), ProblemInfo.class);
     }
@@ -133,6 +137,7 @@ public class PolygonSession implements Closeable {
      * @param timeLimit   Time limit in milliseconds.
      * @param memoryLimit Memory limit in megabytes.
      */
+    @SuppressWarnings("unused")
     public void problemUpdateInfo(@NonNull final Integer problemId, final String inputFile, final String outputFile,
                                   final Boolean interactive, final Integer timeLimit, final Integer memoryLimit)
             throws PolygonSessionException {
@@ -147,6 +152,7 @@ public class PolygonSession implements Closeable {
      * @param minorChanges If <code>true</code>, no email notification will be sent.
      * @param message      Problem’s commit message.
      */
+    @SuppressWarnings("unused")
     public void problemCommitChanges(@NonNull final Integer problemId, final Boolean minorChanges, final String message)
             throws PolygonSessionException {
         sendAPIRequest("problemCommitChanges", "problem.commitChanges", problemId, minorChanges,
@@ -159,6 +165,7 @@ public class PolygonSession implements Closeable {
      * @param problemId Problem ID.
      * @return A described {@link Map}.
      */
+    @SuppressWarnings("unused")
     public Map<String, Statement> problemStatements(@NonNull final Integer problemId) throws PolygonSessionException {
         return gson.fromJson(sendAPIRequest("problemStatements", "problem.statements", problemId),
                 new TypeToken<Map<String, Statement>>() {
@@ -181,6 +188,7 @@ public class PolygonSession implements Closeable {
      * @param notes       Problem notes.
      * @param tutorial    Problem tutorial.
      */
+    @SuppressWarnings("unused")
     public void problemSaveStatement(@NonNull final Integer problemId, @NonNull final String lang,
                                      final String encoding, final String name, final String legend, final String input,
                                      final String output, final String scoring, final String interaction,
@@ -195,6 +203,7 @@ public class PolygonSession implements Closeable {
      * @param problemId Problem ID.
      * @return An array of {@link ProblemFile} objects representing resources.
      */
+    @SuppressWarnings("unused")
     public ProblemFile[] problemStatementResources(@NonNull final Integer problemId) throws PolygonSessionException {
         return gson.fromJson(sendAPIRequest("problemStatementResources", "problem.statementResources", problemId),
                 ProblemFile[].class);
@@ -208,6 +217,7 @@ public class PolygonSession implements Closeable {
      * @param name          File name.
      * @param file          File content.
      */
+    @SuppressWarnings("unused")
     public void problemSaveStatementResource(@NonNull final Integer problemId, final Boolean checkExisting,
                                              @NonNull final String name, @NonNull final String file)
             throws PolygonSessionException {
@@ -223,6 +233,7 @@ public class PolygonSession implements Closeable {
      * @param name          File name.
      * @param file          File descriptor.
      */
+    @SuppressWarnings("unused")
     public void problemSaveStatementResource(@NonNull final Integer problemId, final Boolean checkExisting,
                                              @NonNull final String name, @NonNull final File file)
             throws PolygonSessionException {
@@ -236,6 +247,7 @@ public class PolygonSession implements Closeable {
      * @param problemId Problem ID.
      * @return {@link String} object, contains checker name.
      */
+    @SuppressWarnings("unused")
     public String problemChecker(@NonNull final Integer problemId) throws PolygonSessionException {
         return gson.fromJson(sendAPIRequest("problemChecker", "problem.checker", problemId), String.class);
     }
@@ -246,6 +258,7 @@ public class PolygonSession implements Closeable {
      * @param problemId Problem ID.
      * @return {@link String} object, contains validator name.
      */
+    @SuppressWarnings("unused")
     public String problemValidator(@NonNull final Integer problemId) throws PolygonSessionException {
         return gson.fromJson(sendAPIRequest("problemValidator", "problem.validator", problemId), String.class);
     }
@@ -256,6 +269,7 @@ public class PolygonSession implements Closeable {
      * @param problemId Problem ID.
      * @return {@link String} object, contains interactor name.
      */
+    @SuppressWarnings("unused")
     public String problemInteractor(@NonNull final Integer problemId) throws PolygonSessionException {
         return gson.fromJson(sendAPIRequest("problemInteractor", "problem.interactor", problemId), String.class);
     }
@@ -266,6 +280,7 @@ public class PolygonSession implements Closeable {
      * @param problemId Problem ID.
      * @return An array of {@link ValidatorTest} objects.
      */
+    @SuppressWarnings("unused")
     public ValidatorTest[] problemValidatorTests(@NonNull final Integer problemId) throws PolygonSessionException {
         return gson.fromJson(sendAPIRequest("problemValidatorTests", "problem.validatorTests", problemId), ValidatorTest[].class);
     }
@@ -282,6 +297,7 @@ public class PolygonSession implements Closeable {
      * @param testGroup     Test group (groups should be enabled for the testset).
      * @param testset       Testset name.
      */
+    @SuppressWarnings("unused")
     public void problemSaveValidatorTest(@NonNull final Integer problemId, final Boolean checkExisting,
                                          @NonNull final ValidatorTestVerdict testVerdict,
                                          @NonNull final Integer testIndex, @NonNull final String testInput,
@@ -296,6 +312,7 @@ public class PolygonSession implements Closeable {
      * @param problemId Problem ID.
      * @return An array of {@link CheckerTest} objects.
      */
+    @SuppressWarnings("unused")
     public CheckerTest[] problemCheckerTests(@NonNull final Integer problemId) throws PolygonSessionException {
         return gson.fromJson(sendAPIRequest("problemCheckerTests",
                 "problem.checkerTests", problemId), CheckerTest[].class);
@@ -313,6 +330,7 @@ public class PolygonSession implements Closeable {
      * @param testOutput    Output of a checker test.
      * @param testAnswer    Answer of a checker test.
      */
+    @SuppressWarnings("unused")
     public void problemSaveCheckerTest(@NonNull final Integer problemId, final Boolean checkExisting,
                                        @NonNull final CheckerTestVerdict testVerdict,
                                        @NonNull final Integer testIndex, @NonNull final String testInput,
@@ -328,6 +346,7 @@ public class PolygonSession implements Closeable {
      * @param problemId Problem ID.
      * @return {@link ProblemFiles} object.
      */
+    @SuppressWarnings("unused")
     public ProblemFiles problemFiles(@NonNull final Integer problemId) throws PolygonSessionException {
         return gson.fromJson(sendAPIRequest("problemFiles", "problem.files", problemId), ProblemFiles.class);
     }
@@ -338,6 +357,7 @@ public class PolygonSession implements Closeable {
      * @param problemId Problem ID.
      * @return An array of {@link Solution} objects.
      */
+    @SuppressWarnings("unused")
     public Solution[] problemSolutions(@NonNull final Integer problemId) throws PolygonSessionException {
         return gson.fromJson(sendAPIRequest("problemSolutions", "problem.solutions", problemId), Solution[].class);
     }
@@ -350,6 +370,7 @@ public class PolygonSession implements Closeable {
      * @param name      File name.
      * @return File content in a {@link String} object.
      */
+    @SuppressWarnings("unused")
     public String problemViewFile(@NonNull final Integer problemId, @NonNull final String type,
                                   @NonNull final String name) throws PolygonSessionException {
         String result = sendAPIRequestPlain("problemViewFile", "problem.viewFile", problemId, type, name);
@@ -368,6 +389,7 @@ public class PolygonSession implements Closeable {
      * @param name      File name.
      * @return File content in a {@link String} object.
      */
+    @SuppressWarnings("unused")
     public String problemViewSolution(@NonNull final Integer problemId, @NonNull final String name)
             throws PolygonSessionException {
         String result = sendAPIRequestPlain("problemViewSolution", "problem.viewSolution", problemId, name);
@@ -386,6 +408,7 @@ public class PolygonSession implements Closeable {
      * @param testset   Testset name.
      * @return Script content in a {@link String} object.
      */
+    @SuppressWarnings("unused")
     public String problemScript(@NonNull final Integer problemId, @NonNull final String testset)
             throws PolygonSessionException {
         String result = sendAPIRequestPlain("problemScript", "problem.script", problemId, testset);
@@ -404,6 +427,7 @@ public class PolygonSession implements Closeable {
      * @param testset   Testset name.
      * @return An array of {@link ProblemTest} objects.
      */
+    @SuppressWarnings("unused")
     public ProblemTest[] problemTests(@NonNull final Integer problemId, @NonNull final String testset)
             throws PolygonSessionException {
         return gson.fromJson(sendAPIRequest("problemTests", "problem.tests", problemId, testset), ProblemTest[].class);
@@ -417,6 +441,7 @@ public class PolygonSession implements Closeable {
      * @param testIndex Test index.
      * @return Test input content in a {@link String} object.
      */
+    @SuppressWarnings("unused")
     public String problemTestInput(@NonNull final Integer problemId, @NonNull final String testset,
                                    @NonNull final Integer testIndex) throws PolygonSessionException {
         String result = sendAPIRequestPlain("problemTestInput", "problem.testInput", problemId, testset, testIndex);
@@ -436,6 +461,7 @@ public class PolygonSession implements Closeable {
      * @param testIndex Test index.
      * @return Test output content in a {@link String} object.
      */
+    @SuppressWarnings("unused")
     public String problemTestAnswer(@NonNull final Integer problemId, @NonNull final String testset,
                                     @NonNull final Integer testIndex) throws PolygonSessionException {
         String result = sendAPIRequestPlain("problemTestAnswer", "problem.testAnswer", problemId, testset, testIndex);
@@ -453,6 +479,7 @@ public class PolygonSession implements Closeable {
      * @param problemId Problem ID.
      * @param validator Validator file name.
      */
+    @SuppressWarnings("unused")
     public void problemSetValidator(@NonNull final Integer problemId, @NonNull final String validator)
             throws PolygonSessionException {
         sendAPIRequest("problemSetValidator", "problem.setValidator", problemId, validator);
@@ -464,6 +491,7 @@ public class PolygonSession implements Closeable {
      * @param problemId Problem ID.
      * @param checker   Checker file name.
      */
+    @SuppressWarnings("unused")
     public void problemSetChecker(@NonNull final Integer problemId, @NonNull final String checker)
             throws PolygonSessionException {
         sendAPIRequest("problemSetChecker", "problem.setChecker", problemId, checker);
@@ -475,6 +503,7 @@ public class PolygonSession implements Closeable {
      * @param problemId  Problem ID.
      * @param interactor Interactor file name.
      */
+    @SuppressWarnings("unused")
     public void problemSetInteractor(@NonNull final Integer problemId, @NonNull final String interactor)
             throws PolygonSessionException {
         sendAPIRequest("problemSetInteractor", "problem.setInteractor", problemId, interactor);
@@ -494,6 +523,7 @@ public class PolygonSession implements Closeable {
      * @param stages        An array of stages for which it can be used to (only for resource files).
      * @param assets        An array of assets for which it can be user to (only for resource files).
      */
+    @SuppressWarnings("unused")
     public void problemSaveFile(@NonNull final Integer problemId, final Boolean checkExisting,
                                 @NonNull final String type, @NonNull final String name, @NonNull final String file,
                                 final String sourceType, final String[] forTypes, final ResourceStage[] stages,
@@ -516,6 +546,7 @@ public class PolygonSession implements Closeable {
      * @param stages        An array of stages for which it can be used to (only for resource files).
      * @param assets        An array of assets for which it can be user to (only for resource files).
      */
+    @SuppressWarnings("unused")
     public void problemSaveFile(@NonNull final Integer problemId, final Boolean checkExisting,
                                 @NonNull final String type, @NonNull final String name, @NonNull final File file,
                                 final String sourceType, final String[] forTypes, final ResourceStage[] stages,
@@ -535,6 +566,7 @@ public class PolygonSession implements Closeable {
      * @param sourceType    File source type.
      * @param tag           Solution tag.
      */
+    @SuppressWarnings("unused")
     public void problemSaveSolution(@NonNull final Integer problemId, final Boolean checkExisting,
                                     @NonNull final String name, @NonNull final String file, final String sourceType,
                                     final SolutionTag tag) throws PolygonSessionException {
@@ -553,6 +585,7 @@ public class PolygonSession implements Closeable {
      * @param sourceType    File source type.
      * @param tag           Solution tag.
      */
+    @SuppressWarnings("unused")
     public void problemSaveSolution(@NonNull final Integer problemId, final Boolean checkExisting,
                                     @NonNull final String name, @NonNull final File file, final String sourceType,
                                     final SolutionTag tag) throws PolygonSessionException {
@@ -570,6 +603,7 @@ public class PolygonSession implements Closeable {
      * @param testGroup Group name. Can be <code>null</code>.
      * @param tag       Solution tag.
      */
+    @SuppressWarnings("unused")
     public void problemEditSolutionExtraTags(@NonNull final Integer problemId, @NonNull final Boolean remove,
                                              @NonNull final String name, final String testset, final String testGroup,
                                              final SolutionTag tag) throws PolygonSessionException {
@@ -584,6 +618,7 @@ public class PolygonSession implements Closeable {
      * @param testset   Testset name.
      * @param source    Script content.
      */
+    @SuppressWarnings("unused")
     public void problemSaveScript(@NonNull final Integer problemId, @NonNull final String testset,
                                   @NonNull final String source) throws PolygonSessionException {
         sendAPIRequest("problemSaveScript", "problem.saveScript", problemId, testset, source);
@@ -596,6 +631,7 @@ public class PolygonSession implements Closeable {
      * @param testset   Testset name.
      * @param source    Script file descriptor.
      */
+    @SuppressWarnings("unused")
     public void problemSaveScript(@NonNull final Integer problemId, @NonNull final String testset,
                                   @NonNull final File source) throws PolygonSessionException {
         sendAPIRequest("problemSaveScript", "problem.saveScript", problemId, testset, source);
@@ -618,6 +654,7 @@ public class PolygonSession implements Closeable {
      * @param testOutputForStatements        Test output data for statements.
      * @param verifyInputOutputForStatements If <code>true</code>, input/output data for statements will be checked.
      */
+    @SuppressWarnings("unused")
     public void problemSaveTest(@NonNull final Integer problemId, final Boolean checkExisting,
                                 @NonNull final String testset, @NonNull final Integer testIndex,
                                 final String testInput, final String testGroup, final Double testPoints,
@@ -646,6 +683,7 @@ public class PolygonSession implements Closeable {
      * @param testOutputForStatements        Test output data for statements.
      * @param verifyInputOutputForStatements If <code>true</code>, input/output data for statements will be checked.
      */
+    @SuppressWarnings("unused")
     public void problemSaveTest(@NonNull final Integer problemId, final Boolean checkExisting,
                                 @NonNull final String testset, @NonNull final Integer testIndex,
                                 @NonNull final File testInput, final String testGroup, final Double testPoints,
@@ -667,6 +705,7 @@ public class PolygonSession implements Closeable {
      * @param testIndex   Test index to set group for.
      * @param testIndices Array of test indices.
      */
+    @SuppressWarnings("unused")
     public void problemSetTestGroup(@NonNull final Integer problemId, @NonNull final String testset,
                                     @NonNull final String testGroup, final Integer testIndex,
                                     final Integer[] testIndices) throws PolygonSessionException {
@@ -681,6 +720,7 @@ public class PolygonSession implements Closeable {
      * @param testset   Testset name.
      * @param enable    If <code>true</code>, test groups will be enabled, or disabled otherwise.
      */
+    @SuppressWarnings("unused")
     public void problemEnableGroups(@NonNull final Integer problemId, @NonNull final String testset,
                                     @NonNull final Boolean enable) throws PolygonSessionException {
         sendAPIRequest("problemEnableGroups", "problem.enableGroups", problemId, testset, enable);
@@ -692,6 +732,7 @@ public class PolygonSession implements Closeable {
      * @param problemId Problem ID.
      * @param enable    If <code>true</code>, test points will be enabled, or disabled otherwise.
      */
+    @SuppressWarnings("unused")
     public void problemEnablePoints(@NonNull final Integer problemId, @NonNull final Boolean enable)
             throws PolygonSessionException {
         sendAPIRequest("problemEnablePoints", "problem.enablePoints", problemId, enable);
@@ -705,6 +746,7 @@ public class PolygonSession implements Closeable {
      * @param group     Group name to be returned. Can be <code>null</code>.
      * @return An array of {@link TestGroup} objects.
      */
+    @SuppressWarnings("unused")
     public TestGroup[] problemViewTestGroup(@NonNull final Integer problemId, @NonNull final String testset,
                                             final String group) throws PolygonSessionException {
         return gson.fromJson(sendAPIRequest("problemViewTestGroup", "problem.viewTestGroup", problemId, testset,
@@ -722,6 +764,7 @@ public class PolygonSession implements Closeable {
      * @param feedbackPolicy Feedback policy. Can be <code>null</code>.
      * @param dependencies   Array of groups' names – dependencies groups. Can be <code>null</code>.
      */
+    @SuppressWarnings("unused")
     public void problemSaveTestGroup(@NonNull final Integer problemId, @NonNull final String testset,
                                      @NonNull final String group, final TestGroupPointsPolicy pointsPolicy,
                                      final TestGroupFeedbackPolicy feedbackPolicy, final String[] dependencies)
@@ -736,6 +779,7 @@ public class PolygonSession implements Closeable {
      * @param problemId Problem ID.
      * @return Array of tags in {@link String} objects.
      */
+    @SuppressWarnings("unused")
     public String[] problemViewTags(@NonNull final Integer problemId) throws PolygonSessionException {
         return gson.fromJson(sendAPIRequest("problemViewTags", "problem.viewTags", problemId), String[].class);
     }
@@ -746,6 +790,7 @@ public class PolygonSession implements Closeable {
      * @param problemId Problem ID.
      * @param tags      Array of new tags.
      */
+    @SuppressWarnings("unused")
     public void problemSaveTags(@NonNull final Integer problemId, @NonNull final String[] tags)
             throws PolygonSessionException {
         sendAPIRequest("problemSaveTags", "problem.saveTags", problemId, encodeArray(tags));
@@ -757,6 +802,7 @@ public class PolygonSession implements Closeable {
      * @param problemId Problem ID.
      * @return Problem general description in a {@link String} object.
      */
+    @SuppressWarnings("unused")
     public String problemViewGeneralDescription(@NonNull final Integer problemId) throws PolygonSessionException {
         return gson.fromJson(sendAPIRequest("problemViewGeneralDescription", "problem.viewGeneralDescription",
                 problemId), String.class);
@@ -768,6 +814,7 @@ public class PolygonSession implements Closeable {
      * @param problemId   Problem ID.
      * @param description Problem general description.
      */
+    @SuppressWarnings("unused")
     public void problemSaveGeneralDescription(@NonNull final Integer problemId, @NonNull final String description)
             throws PolygonSessionException {
         sendAPIRequest("problemSaveGeneralDescription", "problem.saveGeneralDescription", problemId, description);
@@ -779,6 +826,7 @@ public class PolygonSession implements Closeable {
      * @param problemId Problem ID.
      * @return Problem general tutorial in a {@link String} object.
      */
+    @SuppressWarnings("unused")
     public String problemViewGeneralTutorial(@NonNull final Integer problemId) throws PolygonSessionException {
         return gson.fromJson(sendAPIRequest("problemViewGeneralTutorial", "problem.viewGeneralTutorial", problemId),
                 String.class);
@@ -790,6 +838,7 @@ public class PolygonSession implements Closeable {
      * @param problemId Problem ID.
      * @param tutorial  Problem general tutorial.
      */
+    @SuppressWarnings("unused")
     public void problemSaveGeneralTutorial(@NonNull final Integer problemId, @NonNull final String tutorial)
             throws PolygonSessionException {
         sendAPIRequest("problemSaveGeneralTutorial", "problem.saveGeneralTutorial", problemId, tutorial);
@@ -801,6 +850,7 @@ public class PolygonSession implements Closeable {
      * @param problemId Problem ID.
      * @return An array of {@link ProblemPackage} objects.
      */
+    @SuppressWarnings("unused")
     public ProblemPackage[] problemPackages(@NonNull final Integer problemId) throws PolygonSessionException {
         return gson.fromJson(sendAPIRequest("problemPackages", "problem.packages", problemId), ProblemPackage[].class);
     }
@@ -812,6 +862,7 @@ public class PolygonSession implements Closeable {
      * @param packageId    Package ID.
      * @param downloadPath Download file descriptor.
      */
+    @SuppressWarnings("unused")
     public void problemPackage(@NonNull final Integer problemId, @NonNull final Integer packageId, final String type,
                                @NonNull final File downloadPath)
             throws PolygonSessionException {
@@ -822,7 +873,9 @@ public class PolygonSession implements Closeable {
         } catch (JsonSyntaxException | NullPointerException ignored) {
         }
 
-        HttpResponse response = getAPIResponse("problemPackage", "problem.package", problemId, packageId, type);
+        List<NameValuePair> parameters = ReflectionUtils.encodeMethodParameters(
+                ReflectionUtils.getMethodByName(this.getClass(), "problemPackage"), problemId, packageId, type);
+        HttpResponse response = getAPIResponse("problem.package", parameters);
 
         try (BufferedInputStream inputStream = new BufferedInputStream(response.getEntity().getContent())) {
             try (BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(downloadPath))) {
@@ -850,6 +903,7 @@ public class PolygonSession implements Closeable {
      * @param verify    If that parameter is <code>true</code> all solutions will be invoked on all tests to be sure
      *                  that tags are valid. Stress tests will run the checker to verify its credibility.
      */
+    @SuppressWarnings("unused")
     public void problemBuildPackage(@NonNull final Integer problemId, @NonNull final Boolean full,
                                     @NonNull final Boolean verify) throws PolygonSessionException {
         sendAPIRequest("problemBuildPackage", "problem.buildPackage", problemId, full, verify);
@@ -861,6 +915,7 @@ public class PolygonSession implements Closeable {
      * @param contestId Contest ID.
      * @return A map from problem letter to {@link Problem} object.
      */
+    @SuppressWarnings("unused")
     public Map<String, Problem> contestProblems(@NonNull final Integer contestId) throws PolygonSessionException {
         return gson.fromJson(sendAPIRequest("contestProblems", "contest.problems", contestId),
                 new TypeToken<Map<String, Problem>>() {
@@ -872,13 +927,6 @@ public class PolygonSession implements Closeable {
             return null;
         }
         return Arrays.stream(data).map(Object::toString).collect(Collectors.joining(","));
-    }
-
-    private HttpResponse getAPIResponse(final String method, final String methodName, final Object... values)
-            throws PolygonSessionException {
-        List<NameValuePair> parameters = ReflectionUtils.encodeMethodParameters(
-                ReflectionUtils.getMethodByName(this.getClass(), method), values);
-        return getAPIResponse(methodName, parameters);
     }
 
     private String sendAPIRequestPlain(final String method, final String methodName, final Object... values)
