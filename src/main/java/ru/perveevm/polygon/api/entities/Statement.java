@@ -12,6 +12,7 @@ public class Statement {
     private String input;
     private String output;
     private String scoring;
+    private String interaction;
     private String notes;
     private String tutorial;
 
@@ -55,6 +56,13 @@ public class Statement {
      */
     public String getScoring() {
         return scoring;
+    }
+
+    /**
+     * @return Problem’s interaction protocol (only for interactive problems).
+     */
+    public String getInteraction() {
+        return interaction;
     }
 
     /**

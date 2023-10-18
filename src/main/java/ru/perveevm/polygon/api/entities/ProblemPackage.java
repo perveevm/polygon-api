@@ -13,6 +13,7 @@ public class ProblemPackage {
     private Integer creationTimeSeconds;
     private PackageState state;
     private String comment;
+    private String type;
 
     /**
      * @return Package ID.
@@ -47,5 +48,15 @@ public class ProblemPackage {
      */
     public String getComment() {
         return comment;
+    }
+
+    /**
+     * @return Type of the package: "standard", "linux" or "windows". Standard packages don't contain generated tests,
+     * but contain windows executables and scripts for windows and linux via wine. Linux packages contain generated
+     * tests, but don't contain compiled binaries. Windows packages contain generated tests and compiled binaries
+     * for Windows.
+     */
+    public String getType() {
+        return type;
     }
 }
