@@ -1,4 +1,4 @@
-# polygon-api [![javadoc](https://javadoc.io/badge2/ru.perveevm/polygon-api/javadoc.svg)](https://javadoc.io/doc/ru.perveevm/polygon-api)
+# polygon-api [![Maven Central](https://img.shields.io/maven-central/v/ru.perveevm/polygon-api.svg)](https://search.maven.org/artifact/ru.perveevm/polygon-api) [![javadoc](https://javadoc.io/badge2/ru.perveevm/polygon-api/javadoc.svg)](https://javadoc.io/doc/ru.perveevm/polygon-api)
 
 This project implements all Polygon API methods described [here](https://docs.google.com/document/d/1mb6CDWpbLQsi7F5UjAdwXdbCpyvSgWSXTJVHl52zZUQ/edit#heading=h.7qf3ungxcp7r).
 
@@ -24,4 +24,4 @@ To add it into your pom.xml use:
 
 ### Advanced functionality
 
-There is also a developing part of this project – `PolygonUserSession`. It implements some methods that are not supported by API but can be very useful in some situations. For example, it supports an ability to create, delete and commit problems, build packages. This part of the project is in developement and there may be some bugs in it. The functionality is gradually increasing. This class requires user `login` and `password` in Polygon. Some of the methods are deprecated and will be removed due to Polygon API enhancements.
+There is also a developing part of this project – `PolygonUserSession`. It implements some methods that are not supported by API but can be very useful in some situations. For example, it supports an ability to create, delete and commit problems, build packages. This part of the project is in development and there may be some bugs in it. The functionality is gradually increasing. This class requires user `login` and `password` in Polygon. Some of the methods are deprecated and will be removed due to Polygon API enhancements.
