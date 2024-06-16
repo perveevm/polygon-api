@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Thrown when the response is bad: either the response code is not 200, or the JSON is invalid.
  *
- * @author Perveev Mike (perveev_m@mail.ru)
+ * @author Mike Perveev (perveev_m@mail.ru)
  */
 public class PolygonSessionBadResponseException extends PolygonSessionException {
     /**

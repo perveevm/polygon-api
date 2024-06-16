@@ -3,7 +3,7 @@ package ru.perveevm.polygon.api.entities.enums;
 /**
  * Represents package state.
  *
- * @author Perveev Mike (perveev_m@mail.ru)
+ * @author Mike Perveev (perveev_m@mail.ru)
  */
 public enum PackageState {
     /**

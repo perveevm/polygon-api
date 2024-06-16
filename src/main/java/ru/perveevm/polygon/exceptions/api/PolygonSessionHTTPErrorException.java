@@ -5,9 +5,9 @@ import org.apache.http.NameValuePair;
 import java.util.List;
 
 /**
- * Thrown when a HTTP error occured while sendings POST request.
+ * Thrown when a HTTP error occurred while sending POST request.
  *
- * @author Perveev Mike (perveev_m@mail.ru)
+ * @author Mike Perveev (perveev_m@mail.ru)
  */
 public class PolygonSessionHTTPErrorException extends PolygonSessionException {
     /**

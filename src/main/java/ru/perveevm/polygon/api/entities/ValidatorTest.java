@@ -5,7 +5,7 @@ import ru.perveevm.polygon.api.entities.enums.ValidatorTestVerdict;
 /**
  * Represents a validator’s test for the problem.
  *
- * @author Perveev Mike (perveev_m@mail.ru)
+ * @author Mike Perveev (perveev_m@mail.ru)
  */
 public class ValidatorTest {
     private Integer index;

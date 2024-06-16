@@ -3,7 +3,7 @@ package ru.perveevm.polygon.exceptions.user;
 /**
  * This class describes errors that can happen while using {@link ru.perveevm.polygon.user.PolygonUserSession}
  *
- * @author Perveev Mike (perveev_m@mail.ru)
+ * @author Mike Perveev (perveev_m@mail.ru)
  */
 public class PolygonUserSessionException extends Exception {
     /**

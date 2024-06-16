@@ -5,7 +5,7 @@ import ru.perveevm.polygon.api.entities.enums.SolutionTag;
 /**
  * Represents the problem solution.
  *
- * @author Perveev Mike (perveev_m@mail.ru)
+ * @author Mike Perveev (perveev_m@mail.ru)
  */
 public class Solution {
     private String name;

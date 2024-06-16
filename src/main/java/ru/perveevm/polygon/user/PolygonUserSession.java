@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 /**
  * Basic class for performing Polygon user requests.
  *
- * @author Perveev Mike (perveev_m@mail.ru)
+ * @author Mike Perveev (perveev_m@mail.ru)
  */
 public class PolygonUserSession implements Closeable {
     private String BASE_URL = "https://polygon.codeforces.com/";
@@ -112,50 +112,6 @@ public class PolygonUserSession implements Closeable {
     }
 
     /**
-     * Creates new problem in Polygon
-     *
-     * @param name created problem name
-     * @throws PolygonUserSessionException if there already exists a problem with such name
-     */
-    @Deprecated(since = "1.2", forRemoval = true)
-    public void problemCreate(final String name) throws PolygonUserSessionException {
-        authorize();
-        List<NameValuePair> parameters = List.of(
-                new BasicNameValuePair("ccid", ccid),
-                new BasicNameValuePair("name", name),
-                new BasicNameValuePair("submit", "Create"),
-                new BasicNameValuePair("submitted", "true")
-        );
-
-        HttpResponse response = sendPost(BASE_URL + "cp?ccid=" + ccid, parameters);
-        if (response.getStatusLine().getStatusCode() == 200) {
-            throw new PolygonUserSessionException("There exists problem with name: " + name);
-        }
-    }
-
-    /**
-     * Commits all changes at problem with given ID
-     *
-     * @param id problem ID in Polygon
-     * @throws PolygonUserSessionException if HTTP error happened while performing request
-     */
-    @Deprecated(since = "1.2", forRemoval = true)
-    public void problemCommit(final int id) throws PolygonUserSessionException {
-        problemCommit(id, null);
-    }
-
-    /**
-     * Commits all changes at problem with given name
-     *
-     * @param name problem name in Polygon
-     * @throws PolygonUserSessionException if HTTP error happened while performing request
-     */
-    @Deprecated(since = "1.2", forRemoval = true)
-    public void problemCommit(final String name) throws PolygonUserSessionException {
-        problemCommit(null, name);
-    }
-
-    /**
      * Deletes problem with given ID
      *
      * @param id problem ID in Polygon
@@ -172,34 +128,6 @@ public class PolygonUserSession implements Closeable {
                 new BasicNameValuePair("session", session)
         );
         sendPost(BASE_URL + "deleteProblem", parameters);
-    }
-
-    /**
-     * Builds package for problem with given ID
-     *
-     * @param id             problem ID in Polygon
-     * @param createFull     if full package is required
-     * @param doVerification if verification is required
-     * @throws PolygonUserSessionException if HTTP error happened while performing request
-     */
-    @Deprecated(since = "1.2", forRemoval = true)
-    public void problemBuildPackage(final int id, final boolean createFull, final boolean doVerification)
-            throws PolygonUserSessionException {
-        problemBuildPackage(id, null, createFull, doVerification);
-    }
-
-    /**
-     * Builds package for problem with given name
-     *
-     * @param name           problem name in Polygon
-     * @param createFull     if full package is required
-     * @param doVerification if verification is requireD
-     * @throws PolygonUserSessionException if HTTP error happened while performing request
-     */
-    @Deprecated(since = "1.2", forRemoval = true)
-    public void problemBuildPackage(final String name, final boolean createFull, final boolean doVerification)
-            throws PolygonUserSessionException {
-        problemBuildPackage(null, name, createFull, doVerification);
     }
 
     /**
@@ -261,32 +189,6 @@ public class PolygonUserSession implements Closeable {
         int fourthQuote = html.indexOf("\"", thirdQuote + 1);
 
         return html.substring(thirdQuote + 1, fourthQuote);
-    }
-
-    private void problemBuildPackage(final Integer id, final String name, final boolean createFull,
-                                     final boolean doVerification) throws PolygonUserSessionException {
-        String session = getSessionBySearchRequest(id, name);
-        List<NameValuePair> parameters = List.of(
-                new BasicNameValuePair("action", "create"),
-                new BasicNameValuePair("ccid", ccid),
-                new BasicNameValuePair("createFull", String.valueOf(createFull)),
-                new BasicNameValuePair("doVerification", doVerification ? "on" : "off"),
-                new BasicNameValuePair("session", session)
-        );
-        sendPost(BASE_URL + "package?ccid=" + ccid + "&session=" + session, parameters);
-    }
-
-    private void problemCommit(final Integer id, final String name) throws PolygonUserSessionException {
-        String session = getSessionBySearchRequest(id, name);
-        List<NameValuePair> parameters = List.of(
-                new BasicNameValuePair("allContests", "true"),
-                new BasicNameValuePair("ccid", ccid),
-                new BasicNameValuePair("message", ""),
-                new BasicNameValuePair("minorChanges", "on"),
-                new BasicNameValuePair("session", session),
-                new BasicNameValuePair("submitted", "true")
-        );
-        sendPost(BASE_URL + "edit-commit?ccid" + ccid + "&session=" + session, parameters);
     }
 
     private List<Element> searchProblemByIdOrName(final Integer id, final String name) throws PolygonUserSessionException {

@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 /**
  * Represents some utils working with Java reflection to perform requests easier.
  *
- * @author Perveev Mike (perveev_m@mail.ru)
+ * @author Mike Perveev (perveev_m@mail.ru)
  */
 public class ReflectionUtils {
     /**

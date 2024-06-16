@@ -5,7 +5,7 @@ import ru.perveevm.polygon.api.entities.enums.PackageState;
 /**
  * Represents problem package.
  *
- * @author Perveev Mike (perveev_m@mail.ru)
+ * @author Mike Perveev (perveev_m@mail.ru)
  */
 public class ProblemPackage {
     private Integer id;

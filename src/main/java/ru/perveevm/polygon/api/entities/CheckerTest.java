@@ -5,7 +5,7 @@ import ru.perveevm.polygon.api.entities.enums.CheckerTestVerdict;
 /**
  * Represents a checker’s test for the problem.
  *
- * @author Perveev Mike (perveev_m@mail.ru)
+ * @author Mike Perveev (perveev_m@mail.ru)
  */
 public class CheckerTest {
     private Integer index;

@@ -6,7 +6,7 @@ import ru.perveevm.polygon.api.entities.enums.ResourceStage;
 /**
  * Represents special resources properties for IOI-style graders.
  *
- * @author Perveev Mike (perveev_m@mail.ru)
+ * @author Mike Perveev (perveev_m@mail.ru)
  */
 public class ResourceAdvancedProperties {
     private String forTypes;

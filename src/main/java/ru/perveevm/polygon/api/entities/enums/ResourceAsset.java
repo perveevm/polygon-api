@@ -3,7 +3,7 @@ package ru.perveevm.polygon.api.entities.enums;
 /**
  * Represents a type of the resource.
  *
- * @author Perveev Mike (perveev_m@mail.ru)
+ * @author Mike Perveev (perveev_m@mail.ru)
  */
 public enum ResourceAsset {
     /**

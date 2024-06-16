@@ -3,7 +3,7 @@ package ru.perveevm.polygon.api.entities.enums;
 /**
  * Represents user's access type to the problem.
  *
- * @author Perveev Mike (perveev_m@mail.ru)
+ * @author Mike Perveev (perveev_m@mail.ru)
  */
 public enum ProblemAccessType {
     /**

@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Thrown when the response JSON status is FAILED.
  *
- * @author Perveev Mike (perveev_m@mail.ru)
+ * @author Mike Perveev (perveev_m@mail.ru)
  */
 public class PolygonSessionFailedRequestException extends PolygonSessionException {
     /**

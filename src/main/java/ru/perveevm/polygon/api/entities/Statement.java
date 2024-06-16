@@ -3,7 +3,7 @@ package ru.perveevm.polygon.api.entities;
 /**
  * Represents problem statements.
  *
- * @author Perveev Mike (perveev_m@mail.ru)
+ * @author Mike Perveev (perveev_m@mail.ru)
  */
 public class Statement {
     private String encoding;

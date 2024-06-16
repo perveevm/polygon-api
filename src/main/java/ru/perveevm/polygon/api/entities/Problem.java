@@ -5,7 +5,7 @@ import ru.perveevm.polygon.api.entities.enums.ProblemAccessType;
 /**
  * Represents problem of a contest.
  *
- * @author Perveev Mike (perveev_m@mail.ru)
+ * @author Mike Perveev (perveev_m@mail.ru)
  */
 public class Problem {
     private Integer id;

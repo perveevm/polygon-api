@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
 /**
  * Basic class for performing Polygon API calls.
  *
- * @author Perveev Mike (perveev_m@mail.ru)
+ * @author Mike Perveev (perveev_m@mail.ru)
  */
 public class PolygonSession implements Closeable {
     private final static String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
@@ -143,6 +143,16 @@ public class PolygonSession implements Closeable {
             throws PolygonSessionException {
         sendAPIRequest("problemUpdateInfo", "problem.updateInfo", problemId, inputFile, outputFile,
                 interactive, timeLimit, memoryLimit);
+    }
+
+    /**
+     * Updates working copy.
+     *
+     * @param problemId Problem ID.
+     */
+    @SuppressWarnings("unused")
+    public void problemUpdateWorkingCopy(@NonNull final Integer problemId) throws PolygonSessionException {
+        sendAPIRequest("problemUpdateWorkingCopy", "problem.updateWorkingCopy", problemId);
     }
 
     /**
@@ -425,12 +435,15 @@ public class PolygonSession implements Closeable {
      *
      * @param problemId Problem ID.
      * @param testset   Testset name.
+     * @param noInputs  If <code>true</code>, returns tests without input.
      * @return An array of {@link ProblemTest} objects.
      */
     @SuppressWarnings("unused")
-    public ProblemTest[] problemTests(@NonNull final Integer problemId, @NonNull final String testset)
+    public ProblemTest[] problemTests(@NonNull final Integer problemId, @NonNull final String testset,
+                                      final Boolean noInputs)
             throws PolygonSessionException {
-        return gson.fromJson(sendAPIRequest("problemTests", "problem.tests", problemId, testset), ProblemTest[].class);
+        return gson.fromJson(sendAPIRequest("problemTests", "problem.tests", problemId, testset,
+                noInputs), ProblemTest[].class);
     }
 
     /**
@@ -969,7 +982,7 @@ public class PolygonSession implements Closeable {
 
         String responseText;
         try {
-            responseText = EntityUtils.toString(response.getEntity());
+            responseText = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
         } catch (IOException | ParseException e) {
             throw new PolygonSessionBadResponseException(BASE_URL + methodName, parameters,
                     response.getStatusLine().getStatusCode(), e);
