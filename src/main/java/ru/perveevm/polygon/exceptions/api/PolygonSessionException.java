@@ -42,12 +42,10 @@ public class PolygonSessionException extends Exception {
     protected static String getMessage(final String url, final List<NameValuePair> parameters) {
         return String.format("Error happened while performing POST request to %s with parameters %s", url,
                 parameters.stream()
-                        .map(param -> {
-                            if (param.getName().equals("apiKey") || param.getName().equals("apiSig")) {
-                                return new BasicNameValuePair(param.getName(), "Hidden for security");
-                            } else {
-                                return param;
-                            }
+                        .map(param -> switch (param.getName()) {
+                            case "apiKey", "apiSig", "login", "password" ->
+                                    new BasicNameValuePair(param.getName(), "Hidden for security");
+                            default -> param;
                         })
                         .map(param -> String.format("\"%s\": \"%s\"", param.getName(), param.getValue()))
                         .collect(Collectors.joining(", ", "{", "}")));

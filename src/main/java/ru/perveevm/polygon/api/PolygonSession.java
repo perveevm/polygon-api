@@ -6,27 +6,24 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import lombok.NonNull;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.ParseException;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import ru.perveevm.polygon.api.entities.*;
 import ru.perveevm.polygon.api.entities.enums.*;
-import ru.perveevm.polygon.exceptions.api.PolygonSessionBadResponseException;
-import ru.perveevm.polygon.exceptions.api.PolygonSessionException;
-import ru.perveevm.polygon.exceptions.api.PolygonSessionFailedRequestException;
-import ru.perveevm.polygon.exceptions.api.PolygonSessionHTTPErrorException;
 import ru.perveevm.polygon.api.json.JSONResponse;
 import ru.perveevm.polygon.api.json.JSONResponseStatus;
-import ru.perveevm.polygon.api.utils.ReflectionUtils;
+import ru.perveevm.polygon.exceptions.api.*;
+import ru.perveevm.polygon.utils.HttpUtils;
+import ru.perveevm.polygon.utils.ReflectionUtils;
 
-import java.io.*;
+import java.io.Closeable;
+import java.io.File;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -38,44 +35,55 @@ import java.util.stream.Collectors;
  */
 public class PolygonSession implements Closeable {
     private final static String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
-    private String BASE_URL = "https://polygon.codeforces.com/api/";
+    private final Random random = new Random();
+    private final Gson gson = new Gson();
+
 
     private final String key;
     private final String secret;
 
-    private final Random random = new Random();
-    private final CloseableHttpClient client = HttpClients.createDefault();
-    private final Gson gson = new Gson();
+    private String baseUrl = "https://polygon.codeforces.com/api/";
+    private CloseableHttpClient client = HttpClients.createDefault();
+
+    private long startWaitMs = 100L;
+    private long maxTotalWaitMs = 60000L;
+    private double waitCoefficient = 2.0;
+    private int maxRetries = 5;
 
     private String pin = null;
 
-    /**
-     * Initializes Polygon session with API key.
-     *
-     * @param key    API key from Polygon.
-     * @param secret API secret parameter from Polygon.
-     */
-    public PolygonSession(final String key, final String secret) {
+    PolygonSession(final String key, final String secret) {
         this.key = key;
         this.secret = secret;
-    }
-
-    /**
-     * Initializes Polygon session with API key and Polygon API URL
-     *
-     * @param key     API key from Polygon
-     * @param secret  API secret parameter from Polygon
-     * @param baseUrl URL to Polygon API, for example <a href="https://polygon.codeforces.com/api/">https://polygon.codeforces.com/api/</a>
-     */
-    public PolygonSession(final String key, final String secret, final String baseUrl) {
-        this.key = key;
-        this.secret = secret;
-        this.BASE_URL = baseUrl;
     }
 
     @Override
     public void close() throws IOException {
         client.close();
+    }
+
+    void setStartWaitMs(final long startWaitMs) {
+        this.startWaitMs = startWaitMs;
+    }
+
+    void setMaxTotalWaitMs(final long maxTotalWaitMs) {
+        this.maxTotalWaitMs = maxTotalWaitMs;
+    }
+
+    void setWaitCoefficient(final double waitCoefficient) {
+        this.waitCoefficient = waitCoefficient;
+    }
+
+    void setMaxRetries(final int maxRetries) {
+        this.maxRetries = maxRetries;
+    }
+
+    void setBaseUrl(final String baseUrl) {
+        this.baseUrl = baseUrl;
+    }
+
+    void setClient(final CloseableHttpClient client) {
+        this.client = client;
     }
 
     /**
@@ -386,7 +394,7 @@ public class PolygonSession implements Closeable {
         String result = sendAPIRequestPlain("problemViewFile", "problem.viewFile", problemId, type, name);
         try {
             JSONResponse response = gson.fromJson(result, JSONResponse.class);
-            throw new PolygonSessionFailedRequestException(BASE_URL + "problem.viewFile", response.getComment());
+            throw new PolygonSessionFailedRequestException(baseUrl + "problem.viewFile", response.getComment());
         } catch (JsonSyntaxException | NullPointerException ignored) {
             return result;
         }
@@ -405,7 +413,7 @@ public class PolygonSession implements Closeable {
         String result = sendAPIRequestPlain("problemViewSolution", "problem.viewSolution", problemId, name);
         try {
             JSONResponse response = gson.fromJson(result, JSONResponse.class);
-            throw new PolygonSessionFailedRequestException(BASE_URL + "problem.viewSolution", response.getComment());
+            throw new PolygonSessionFailedRequestException(baseUrl + "problem.viewSolution", response.getComment());
         } catch (JsonSyntaxException | NullPointerException ignored) {
             return result;
         }
@@ -424,7 +432,7 @@ public class PolygonSession implements Closeable {
         String result = sendAPIRequestPlain("problemScript", "problem.script", problemId, testset);
         try {
             JSONResponse response = gson.fromJson(result, JSONResponse.class);
-            throw new PolygonSessionFailedRequestException(BASE_URL + "problem.script", response.getComment());
+            throw new PolygonSessionFailedRequestException(baseUrl + "problem.script", response.getComment());
         } catch (JsonSyntaxException | NullPointerException ignored) {
             return result;
         }
@@ -460,7 +468,7 @@ public class PolygonSession implements Closeable {
         String result = sendAPIRequestPlain("problemTestInput", "problem.testInput", problemId, testset, testIndex);
         try {
             JSONResponse response = gson.fromJson(result, JSONResponse.class);
-            throw new PolygonSessionFailedRequestException(BASE_URL + "problem.testInput", response.getComment());
+            throw new PolygonSessionFailedRequestException(baseUrl + "problem.testInput", response.getComment());
         } catch (JsonSyntaxException | NullPointerException ignored) {
             return result;
         }
@@ -480,7 +488,7 @@ public class PolygonSession implements Closeable {
         String result = sendAPIRequestPlain("problemTestAnswer", "problem.testAnswer", problemId, testset, testIndex);
         try {
             JSONResponse response = gson.fromJson(result, JSONResponse.class);
-            throw new PolygonSessionFailedRequestException(BASE_URL + "problem.testAnswer", response.getComment());
+            throw new PolygonSessionFailedRequestException(baseUrl + "problem.testAnswer", response.getComment());
         } catch (JsonSyntaxException | NullPointerException ignored) {
             return result;
         }
@@ -882,26 +890,14 @@ public class PolygonSession implements Closeable {
         String stringResponse = sendAPIRequestPlain("problemPackage", "problem.package", problemId, packageId, type);
         try {
             JSONResponse json = gson.fromJson(stringResponse, JSONResponse.class);
-            throw new PolygonSessionFailedRequestException(BASE_URL + "problem.package", json.getComment());
+            throw new PolygonSessionFailedRequestException(baseUrl + "problem.package", json.getComment());
         } catch (JsonSyntaxException | NullPointerException ignored) {
         }
 
         List<NameValuePair> parameters = ReflectionUtils.encodeMethodParameters(
                 ReflectionUtils.getMethodByName(this.getClass(), "problemPackage"), problemId, packageId, type);
-        HttpResponse response = getAPIResponse("problem.package", parameters);
-
-        try (BufferedInputStream inputStream = new BufferedInputStream(response.getEntity().getContent())) {
-            try (BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(downloadPath))) {
-                int curByte;
-                while ((curByte = inputStream.read()) != -1) {
-                    outputStream.write(curByte);
-                }
-            } catch (IOException e) {
-                throw new PolygonSessionException("Cannot write package file: " + e.getMessage(), e);
-            }
-        } catch (IOException e) {
-            throw new PolygonSessionHTTPErrorException(BASE_URL + "problem.package", e);
-        }
+        HttpUtils.downloadFile(baseUrl + "problem.package",
+                getAPIResponse("problem.package", parameters), downloadPath);
     }
 
     /**
@@ -968,9 +964,9 @@ public class PolygonSession implements Closeable {
 
         HttpResponse response;
         try {
-            response = sendPostRequest(BASE_URL + methodName, extendedParameters);
+            response = HttpUtils.sendPostRequest(client, baseUrl + methodName, extendedParameters);
         } catch (IOException e) {
-            throw new PolygonSessionHTTPErrorException(BASE_URL + methodName, parameters, e);
+            throw new PolygonSessionHTTPErrorException(baseUrl + methodName, parameters, e);
         }
 
         return response;
@@ -984,7 +980,7 @@ public class PolygonSession implements Closeable {
         try {
             responseText = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
         } catch (IOException | ParseException e) {
-            throw new PolygonSessionBadResponseException(BASE_URL + methodName, parameters,
+            throw new PolygonSessionBadResponseException(baseUrl + methodName, parameters,
                     response.getStatusLine().getStatusCode(), e);
         }
 
@@ -993,48 +989,36 @@ public class PolygonSession implements Closeable {
 
     private JsonElement sendAPIRequest(final String methodName, final List<NameValuePair> parameters)
             throws PolygonSessionException {
-        String json = sendAPIRequestPlain(methodName, parameters);
-
         JSONResponse jsonResponse;
-        long timeout = 100;
-        while (true) {
-            if (timeout >= 60000) {
-                throw new PolygonSessionException("Polygon API doesn't respond, please try later");
-            }
+        long delay = startWaitMs;
+        long totalDelay = 0;
+        int retries = 0;
+        do {
             try {
+                String json = sendAPIRequestPlain(methodName, parameters);
                 jsonResponse = gson.fromJson(json, JSONResponse.class);
                 break;
             } catch (JsonSyntaxException e) {
-                try {
-                    Thread.currentThread().wait(timeout);
-                } catch (InterruptedException ie) {
-                    throw new PolygonSessionException("Session thread was interrupted", e);
-                } catch (RuntimeException ie) {
-                    System.err.println("WARNING: unexpected runtime error happened, retrying request...");
-                    System.err.println(ie.getMessage());
+                long waitFor = Math.min(delay, maxTotalWaitMs - totalDelay);
+                ++retries;
+                delay = (long) (delay * waitCoefficient);
+                if (waitFor <= 0 || retries > maxRetries) {
+                    throw new PolygonSessionAPIUnavailableException();
                 }
-                timeout *= 2;
+
+                try {
+                    Thread.sleep(waitFor);  // TODO: may be remove busy wait here
+                } catch (InterruptedException es) {
+                    throw new PolygonSessionException("Session thread was interrupted", e);
+                }
             }
-        }
+        } while (true);
 
         if (jsonResponse.getStatus() == JSONResponseStatus.FAILED) {
-            throw new PolygonSessionFailedRequestException(BASE_URL + methodName, parameters,
+            throw new PolygonSessionFailedRequestException(baseUrl + methodName, parameters,
                     jsonResponse.getComment());
         }
-
         return jsonResponse.getResult();
-    }
-
-    private HttpResponse sendPostRequest(final String url, final List<NameValuePair> parameters)
-            throws IOException {
-        HttpPost request = new HttpPost(url);
-        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-        for (NameValuePair p : parameters) {
-            builder.addBinaryBody(p.getName(), p.getValue().getBytes(StandardCharsets.UTF_8));
-        }
-        HttpEntity entity = builder.build();
-        request.setEntity(entity);
-        return client.execute(request);
     }
 
     private String generateApiSig(final String methodName, final List<NameValuePair> parameters) {

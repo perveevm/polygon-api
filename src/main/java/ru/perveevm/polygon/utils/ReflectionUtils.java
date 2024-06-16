@@ -1,4 +1,4 @@
-package ru.perveevm.polygon.api.utils;
+package ru.perveevm.polygon.utils;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
