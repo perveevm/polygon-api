@@ -6,7 +6,7 @@
 
     <groupId>ru.perveevm</groupId>
     <artifactId>polygon-api</artifactId>
-    <version>1.4</version>
+    <version>1.5</version>
     <packaging>jar</packaging>
 
     <name>Polygon API</name>
@@ -80,6 +80,12 @@
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
             <version>1.14.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>me.tongfei</groupId>
+            <artifactId>progressbar</artifactId>
+            <version>0.10.1</version>
         </dependency>
     </dependencies>
 

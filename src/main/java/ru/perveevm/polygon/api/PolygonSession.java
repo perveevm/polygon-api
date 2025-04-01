@@ -21,6 +21,7 @@ import ru.perveevm.polygon.exceptions.api.*;
 import ru.perveevm.polygon.utils.HttpUtils;
 import ru.perveevm.polygon.utils.ReflectionUtils;
 
+import javax.imageio.stream.IIOByteBuffer;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
@@ -161,6 +162,16 @@ public class PolygonSession implements Closeable {
     @SuppressWarnings("unused")
     public void problemUpdateWorkingCopy(@NonNull final Integer problemId) throws PolygonSessionException {
         sendAPIRequest("problemUpdateWorkingCopy", "problem.updateWorkingCopy", problemId);
+    }
+
+    /**
+     * Discards working copy.
+     *
+     * @param problemId Problem ID.
+     */
+    @SuppressWarnings("unused")
+    public void problemDiscardWorkingCopy(@NonNull final Integer problemId) throws PolygonSessionException {
+        sendAPIRequest("problemDiscardWorkingCopy", "problem.discardWorkingCopy", problemId);
     }
 
     /**
@@ -887,13 +898,6 @@ public class PolygonSession implements Closeable {
     public void problemPackage(@NonNull final Integer problemId, @NonNull final Integer packageId, final String type,
                                @NonNull final File downloadPath)
             throws PolygonSessionException {
-        String stringResponse = sendAPIRequestPlain("problemPackage", "problem.package", problemId, packageId, type);
-        try {
-            JSONResponse json = gson.fromJson(stringResponse, JSONResponse.class);
-            throw new PolygonSessionFailedRequestException(baseUrl + "problem.package", json.getComment());
-        } catch (JsonSyntaxException | NullPointerException ignored) {
-        }
-
         List<NameValuePair> parameters = ReflectionUtils.encodeMethodParameters(
                 ReflectionUtils.getMethodByName(this.getClass(), "problemPackage"), problemId, packageId, type);
         HttpUtils.downloadFile(baseUrl + "problem.package",

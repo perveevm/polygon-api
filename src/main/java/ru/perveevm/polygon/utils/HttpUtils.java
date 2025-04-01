@@ -1,5 +1,6 @@
 package ru.perveevm.polygon.utils;
 
+import me.tongfei.progressbar.ProgressBar;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -41,17 +42,20 @@ public class HttpUtils {
 
     public static void downloadFile(final String url, final HttpResponse response, final File downloadPath)
             throws PolygonSessionException {
-        try (BufferedInputStream inputStream = new BufferedInputStream(response.getEntity().getContent())) {
-            try (BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(downloadPath))) {
-                int curByte;
-                while ((curByte = inputStream.read()) != -1) {
-                    outputStream.write(curByte);
+        try (ProgressBar pb = new ProgressBar("Downloading file", response.getEntity().getContentLength())) {
+            try (BufferedInputStream inputStream = new BufferedInputStream(response.getEntity().getContent(), 1 << 20)) {
+                try (BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(downloadPath), 1 << 20)) {
+                    int curByte;
+                    while ((curByte = inputStream.read()) != -1) {
+                        outputStream.write(curByte);
+                        pb.step();
+                    }
+                } catch (IOException e) {
+                    throw new PolygonSessionException("Cannot write file: " + e.getMessage(), e);
                 }
             } catch (IOException e) {
-                throw new PolygonSessionException("Cannot write file: " + e.getMessage(), e);
+                throw new PolygonSessionHTTPErrorException(url, e);
             }
-        } catch (IOException e) {
-            throw new PolygonSessionHTTPErrorException(url, e);
         }
     }
 }
