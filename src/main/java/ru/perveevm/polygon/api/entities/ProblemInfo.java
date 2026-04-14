@@ -9,6 +9,7 @@ public class ProblemInfo {
     private String inputFile;
     private String outputFile;
     private Boolean interactive;
+    private Boolean wellFormed;
     private Integer timeLimit;
     private Integer memoryLimit;
 
@@ -31,6 +32,13 @@ public class ProblemInfo {
      */
     public Boolean getInteractive() {
         return interactive;
+    }
+
+    /**
+     * @return Is <code>true</code> if tests are well-formed.
+     */
+    public Boolean getWellFormed() {
+        return wellFormed;
     }
 
     /**

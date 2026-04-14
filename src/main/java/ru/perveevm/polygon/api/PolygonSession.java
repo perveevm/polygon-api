@@ -143,15 +143,17 @@ public class PolygonSession implements Closeable {
      * @param inputFile   Input file name.
      * @param outputFile  Output file name.
      * @param interactive Is problem interactive.
+     * @param wellFormed  Are tests well-formed
      * @param timeLimit   Time limit in milliseconds.
      * @param memoryLimit Memory limit in megabytes.
      */
     @SuppressWarnings("unused")
     public void problemUpdateInfo(@NonNull final Integer problemId, final String inputFile, final String outputFile,
-                                  final Boolean interactive, final Integer timeLimit, final Integer memoryLimit)
+                                  final Boolean interactive, final Boolean wellFormed,
+                                  final Integer timeLimit, final Integer memoryLimit)
             throws PolygonSessionException {
         sendAPIRequest("problemUpdateInfo", "problem.updateInfo", problemId, inputFile, outputFile,
-                interactive, timeLimit, memoryLimit);
+                interactive, wellFormed, timeLimit, memoryLimit);
     }
 
     /**
